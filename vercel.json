@@ -1,0 +1,6 @@
+{
+    "rewrites": [
+        { "source": "/api/:match*", "destination": "https://spx.vn/:match*" },
+        { "source": "/(.*)", "destination": "/" }
+    ]
+}
