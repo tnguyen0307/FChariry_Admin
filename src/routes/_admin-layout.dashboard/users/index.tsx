@@ -62,7 +62,7 @@ function RouteComponent() {
     }, [value, data]);
 
     return (
-        <div className="space-y-2">
+        <div className="space-y-3">
             <Typography.Title level={3}>User Management</Typography.Title>
             <FCFormField methods={methods} className="grid grid-cols-4 gap-2">
                 <FCTextField label="Search terms" name="searchTerms" />
