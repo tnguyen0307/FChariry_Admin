@@ -13,7 +13,11 @@ export const Route = createFileRoute('/_admin-layout/dashboard/users/$id')({
 function RouteComponent() {
     const { id } = Route.useParams();
 
-    const { data: user } = useGetUserById(id);
+    const { data: user, isLoading } = useGetUserById(id);
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
 
     if (!user) {
         return <div>User not found</div>;
