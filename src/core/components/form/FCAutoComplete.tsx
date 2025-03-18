@@ -3,16 +3,16 @@ import * as React from 'react';
 import { AutoComplete, AutoCompleteProps } from 'antd';
 import { Controller, useFormContext } from 'react-hook-form';
 
-import NKFieldWrapper, { NKFieldWrapperProps } from './NKFieldWrapper';
+import FCFieldWrapper, { FCFieldWrapperProps } from './FCFieldWrapper';
 
-export interface NKAutoCompleteProps extends AutoCompleteProps {}
+export interface FCAutoCompleteProps extends AutoCompleteProps {}
 
-type Props = NKAutoCompleteProps & NKFieldWrapperProps;
+type Props = FCAutoCompleteProps & FCFieldWrapperProps;
 
-const NKAutoComplete: React.FC<Props> = ({ name, isShow = true, label, labelClassName, options, ...rest }) => {
+const FCAutoComplete: React.FC<Props> = ({ name, isShow = true, label, labelClassName, options, ...rest }) => {
     const formMethods = useFormContext();
     return (
-        <NKFieldWrapper labelClassName={labelClassName} isShow={isShow} label={label} name={name}>
+        <FCFieldWrapper labelClassName={labelClassName} isShow={isShow} label={label} name={name}>
             <Controller
                 name={name}
                 control={formMethods.control}
@@ -30,8 +30,8 @@ const NKAutoComplete: React.FC<Props> = ({ name, isShow = true, label, labelClas
                     );
                 }}
             />
-        </NKFieldWrapper>
+        </FCFieldWrapper>
     );
 };
 
-export default NKAutoComplete;
+export default FCAutoComplete;

@@ -9,8 +9,8 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 import { NKRouter } from '@/core/NKRouter';
-import NKFormField from '@/core/components/field/NKFormField';
-import NKTextField from '@/core/components/form/NKTextField';
+import FCFormField from '@/core/components/form/FCFormField';
+import FCTextField from '@/core/components/form/FCTextField';
 import { OrganizationStatusTag } from '@/core/components/tags/OrganizationStatusTag';
 import {
     useApproveAllOrganizations,
@@ -79,9 +79,9 @@ function RouteComponent() {
             >
                 Approve All
             </Button>
-            <NKFormField methods={methods} className="grid grid-cols-4 gap-2">
-                <NKTextField label="Search terms" name="searchTerms" />
-            </NKFormField>
+            <FCFormField methods={methods} className="grid grid-cols-4 gap-2">
+                <FCTextField label="Search terms" name="searchTerms" />
+            </FCFormField>
 
             <Table
                 bordered

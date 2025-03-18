@@ -16,14 +16,14 @@ import { cn } from '@/core/utils/tailwind';
 
 
 
-import NKForm, { FieldProps, NKFormType } from './NKForm';
-import NKFormWrapper from './NKFormWrapper';
+import FCForm, { FieldProps, FCFormType } from './FCForm';
+import FCFormWrapper from './FCFormWrapper';
 
 
 export interface FormBuilderItem {
     name: string;
     label: string;
-    type: NKFormType;
+    type: FCFormType;
     span?: 1 | 2 | 3 | 4;
     isShow?: (value: any) => boolean;
     apiAction?: (value: any) => any;
@@ -119,19 +119,19 @@ const FormBuilder = <T,>({
                     <div className="sr-only col-span-4"></div>
                 </div>
             )}
-            <NKFormWrapper formMethods={formMethods} formActionError={mutate.error}>
+            <FCFormWrapper formMethods={formMethods} formActionError={mutate.error}>
                 <div className="grid grid-cols-4 gap-4">
                     {fields
                         .filter((item) => (item.isShow ? item.isShow(watchValues) : true))
                         .map((item) => {
                             return (
                                 <div key={kebabCase(`${item.name}-${item.label}`)} className={`col-span-${item?.span || 4} `}>
-                                    <NKForm {...item} label={item.label} name={item.name} type={item.type} fieldProps={item.fieldProps as any} />
+                                    <FCForm {...item} label={item.label} name={item.name} type={item.type} fieldProps={item.fieldProps as any} />
                                 </div>
                             );
                         })}
                 </div>
-            </NKFormWrapper>
+            </FCFormWrapper>
             <Button type="primary" htmlType="submit" loading={mutate.isPending} {...buttonProps}>
                 {btnLabel}
             </Button>

@@ -9,8 +9,8 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 import { NKRouter } from '@/core/NKRouter';
-import NKFormField from '@/core/components/field/NKFormField';
-import NKTextField from '@/core/components/form/NKTextField';
+import FCFormField from '@/core/components/form/FCFormField';
+import FCTextField from '@/core/components/form/FCTextField';
 import { PostStatusTag } from '@/core/components/tags/PostStatusTag';
 import { useApproveAllPosts, useApprovePost, useGetAllPosts, useHidePost } from '@/core/hooks/react-query/admin-posts.hook';
 import { PostModel, PostStatus } from '@/core/models/post';
@@ -67,9 +67,9 @@ function RouteComponent() {
             >
                 Approve All
             </Button>
-            <NKFormField methods={methods} className="grid grid-cols-4 gap-2">
-                <NKTextField label="Title" name="title" />
-            </NKFormField>
+            <FCFormField methods={methods} className="grid grid-cols-4 gap-2">
+                <FCTextField label="Title" name="title" />
+            </FCFormField>
             <Table
                 bordered
                 dataSource={filterData}

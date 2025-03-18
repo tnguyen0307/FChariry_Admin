@@ -12,7 +12,7 @@ import { authApi } from '@/core/api/auth';
 import { usersApi } from '@/core/api/users';
 import { queryClient } from '@/core/common/configGlobal';
 import FormBuilder from '@/core/components/form/FormBuilder';
-import { NKFormType } from '@/core/components/form/NKForm';
+import { FCFormType } from '@/core/components/form/FCForm';
 import { QUERY_CONSTANT } from '@/core/constant/query';
 import { useNKRouter } from '@/core/routing/hooks/NKRouter';
 
@@ -39,12 +39,12 @@ const Page: React.FunctionComponent = () => {
                         }}
                         fields={[
                             {
-                                type: NKFormType.TEXT,
+                                type: FCFormType.TEXT,
                                 name: 'email',
                                 label: 'Email',
                             },
                             {
-                                type: NKFormType.PASSWORD,
+                                type: FCFormType.PASSWORD,
                                 name: 'password',
                                 label: 'Password',
                             },

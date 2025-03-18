@@ -3,7 +3,7 @@ import * as React from 'react';
 import _ from 'lodash';
 import { useFormContext } from 'react-hook-form';
 
-export interface NKFieldWrapperProps {
+export interface FCFieldWrapperProps {
     label: string;
     name: string;
     isShow?: boolean;
@@ -11,7 +11,7 @@ export interface NKFieldWrapperProps {
     onChangeExtra?: (value: any, path: string, formMethods: any) => void;
 }
 
-const NKFieldWrapper: React.FC<NKFieldWrapperProps & React.PropsWithChildren> = ({
+const FCFieldWrapper: React.FC<FCFieldWrapperProps & React.PropsWithChildren> = ({
     children,
     isShow = true,
     label,
@@ -50,4 +50,4 @@ const NKFieldWrapper: React.FC<NKFieldWrapperProps & React.PropsWithChildren> = 
     );
 };
 
-export default NKFieldWrapper;
+export default FCFieldWrapper;

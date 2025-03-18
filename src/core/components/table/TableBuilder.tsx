@@ -24,7 +24,7 @@ import { cn } from '@/core/utils/tailwind';
 
 
 import FieldDisplay, { FieldType } from '../field/NKFieldDisplay';
-import NKForm, { NKFormType } from '../form/NKForm';
+import FCForm, { FCFormType } from '../form/FCForm';
 
 
 export interface TableBuilderColumn extends ColumnType<AnyObject> {
@@ -37,7 +37,7 @@ export interface TableBuilderColumn extends ColumnType<AnyObject> {
 export interface IFilterItem {
     name: string;
     filterName?: string;
-    type: NKFormType;
+    type: FCFormType;
     label: string;
     comparator: FilterComparator;
     defaultValue?: any;
@@ -224,9 +224,9 @@ const TableBuilder: React.FC<TableBuilderProps> = ({
                                         <FormProvider {...formMethods}>
                                             <div className="fade-in flex flex-col gap-4 rounded-md bg-white px-6 py-8 shadow-lg">
                                                 {filters.map((item) => {
-                                                    if (item.type === NKFormType.SELECT_API_OPTION) {
+                                                    if (item.type === FCFormType.SELECT_API_OPTION) {
                                                         return (
-                                                            <NKForm
+                                                            <FCForm
                                                                 key={item.name}
                                                                 name={item.name}
                                                                 label={item.label}
@@ -240,7 +240,7 @@ const TableBuilder: React.FC<TableBuilderProps> = ({
                                                     }
 
                                                     return (
-                                                        <NKForm
+                                                        <FCForm
                                                             key={item.name}
                                                             name={item.name}
                                                             label={item.label}

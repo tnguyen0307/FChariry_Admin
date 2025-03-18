@@ -4,17 +4,17 @@ import { InputNumber, InputNumberProps } from 'antd';
 import _ from 'lodash';
 import { Controller, useFormContext } from 'react-hook-form';
 
-import NKFieldWrapper, { NKFieldWrapperProps } from './NKFieldWrapper';
+import FCFieldWrapper, { FCFieldWrapperProps } from './FCFieldWrapper';
 
-export interface NKInputNumberProps extends InputNumberProps {}
+export interface FCInputNumberProps extends InputNumberProps {}
 
-type Props = NKInputNumberProps & NKFieldWrapperProps;
+type Props = FCInputNumberProps & FCFieldWrapperProps;
 
-const NKInputNumber: React.FC<Props> = ({ name, isShow, label, labelClassName, ...rest }) => {
+const FCInputNumber: React.FC<Props> = ({ name, isShow, label, labelClassName, ...rest }) => {
     const formMethods = useFormContext();
 
     return (
-        <NKFieldWrapper labelClassName={labelClassName} isShow={isShow} label={label} name={name}>
+        <FCFieldWrapper labelClassName={labelClassName} isShow={isShow} label={label} name={name}>
             <Controller
                 name={name}
                 control={formMethods.control}
@@ -28,8 +28,8 @@ const NKInputNumber: React.FC<Props> = ({ name, isShow, label, labelClassName, .
                     />
                 )}
             />
-        </NKFieldWrapper>
+        </FCFieldWrapper>
     );
 };
 
-export default NKInputNumber;
+export default FCInputNumber;

@@ -6,22 +6,22 @@ import { isDate } from 'lodash';
 import moment from 'moment';
 import { Controller, useFormContext } from 'react-hook-form';
 
-import NKFieldWrapper, { NKFieldWrapperProps } from './NKFieldWrapper';
+import FCFieldWrapper, { FCFieldWrapperProps } from './FCFieldWrapper';
 
-export type NKDateFieldTheme = 'DEFAULT' | 'AUTH';
+export type FCDateFieldTheme = 'DEFAULT' | 'AUTH';
 
-interface NKDateFieldProps {
-    theme?: NKDateFieldTheme;
+interface FCDateFieldProps {
+    theme?: FCDateFieldTheme;
     icon?: React.ReactNode;
 }
 
-type Props = NKDateFieldProps & NKFieldWrapperProps & React.ComponentProps<typeof DatePicker>;
+type Props = FCDateFieldProps & FCFieldWrapperProps & React.ComponentProps<typeof DatePicker>;
 
-const NKDateField: React.FC<Props> = ({ name, isShow = true, label, labelClassName, theme = 'DEFAULT', icon, ...rest }) => {
+const FCDateField: React.FC<Props> = ({ name, isShow = true, label, labelClassName, theme = 'DEFAULT', icon, ...rest }) => {
     const formMethods = useFormContext();
 
     return (
-        <NKFieldWrapper labelClassName={labelClassName} isShow={isShow} label={label} name={name}>
+        <FCFieldWrapper labelClassName={labelClassName} isShow={isShow} label={label} name={name}>
             <Controller
                 name={name}
                 control={formMethods.control}
@@ -41,8 +41,8 @@ const NKDateField: React.FC<Props> = ({ name, isShow = true, label, labelClassNa
                     />
                 )}
             />
-        </NKFieldWrapper>
+        </FCFieldWrapper>
     );
 };
 
-export default NKDateField;
+export default FCDateField;
