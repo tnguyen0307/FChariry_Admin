@@ -11,8 +11,6 @@ import NKSelectMultiApiOption, { NKSelectMultiApiOptionProps } from './NKSelectM
 import NKTextField, { NKTextFieldProps } from './NKTextField';
 import NKTextareaField, { NKTextAreaFieldProps } from './NKTextareaField';
 import NKTimePicker, { NKTimePickerProps } from './NKTimePicker';
-import NKUploadFileDirect, { NKUploadFileDirectProps } from './NKUploadFileDirect';
-import NKUploadImage, { NKUploadImageProps } from './NKUploadImage';
 import NKWatchDisplay, { NKWatchDisplayProps } from './NKWatchDisplay';
 
 export enum NKFormType {
@@ -65,9 +63,7 @@ export type FieldProps = NKFieldWrapperProps &
         | NKFieldsProps<NKFormType.SELECT_ICON, NKSelectIconProps>
         | NKRequireFieldsProps<NKFormType.SELECT_MULTI_API_OPTION, NKSelectMultiApiOptionProps>
         | NKFieldsProps<NKFormType.ARRAY, NKArrayFieldProps>
-        | NKFieldsProps<NKFormType.UPLOAD_FILE_DIRECT, NKUploadFileDirectProps>
         | NKFieldsProps<NKFormType.CUSTOM, any>
-        | NKFieldsProps<NKFormType.UPLOAD_IMAGE, NKUploadImageProps>
     );
 
 interface NKFieldsProps<Type, IField> {
@@ -112,9 +108,6 @@ const NKForm: React.FC<FieldProps> = ({ label, name, type, fieldProps, ...rest }
             return <NKSelectApiOption name={name} label={label} {...fieldProps} {...rest} />;
         case NKFormType.SELECT_ICON:
             return <NKSelectIcon name={name} label={label} {...fieldProps} {...rest} />;
-
-        case NKFormType.UPLOAD_FILE_DIRECT:
-            return <NKUploadFileDirect name={name} label={label} {...fieldProps} {...rest} />;
         case NKFormType.SELECT_MULTI_API_OPTION:
             return <NKSelectMultiApiOption name={name} label={label} {...fieldProps} {...rest} />;
         case NKFormType.CUSTOM:
@@ -131,8 +124,6 @@ const NKForm: React.FC<FieldProps> = ({ label, name, type, fieldProps, ...rest }
             );
         case NKFormType.TIME_PICKER:
             return <NKTimePicker name={name} label={label} {...fieldProps} {...rest} />;
-        case NKFormType.UPLOAD_IMAGE:
-            return <NKUploadImage name={name} label={label} maxCount={1} {...fieldProps} {...rest} />;
         default:
             return <NKTextField name={name} label={label} {...(fieldProps as any)} {...rest} />;
     }
