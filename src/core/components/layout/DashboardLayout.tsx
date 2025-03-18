@@ -8,14 +8,14 @@ import { Building, User } from 'lucide-react';
 
 import { NKRouter } from '@/core/NKRouter';
 import { useAuth } from '@/core/contexts/AuthContext';
-import { useNKRouter } from '@/core/routing/hooks/NKRouter';
+import { useFCRouter } from '@/core/routing/hooks/FCRouter';
 
 const { Content, Sider } = Layout;
 
 interface DashboardLayoutProps extends React.PropsWithChildren {}
 
 const DashboardLayout: React.FunctionComponent<DashboardLayoutProps> = ({ children }) => {
-    const router = useNKRouter();
+    const router = useFCRouter();
 
     const { logout } = useAuth();
 

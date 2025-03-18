@@ -1,6 +1,6 @@
 import { useNavigate, useRouter } from '@tanstack/react-router';
 
-export const useNKRouter = () => {
+export const useFCRouter = () => {
     const navigate = useNavigate();
     const router = useRouter();
 

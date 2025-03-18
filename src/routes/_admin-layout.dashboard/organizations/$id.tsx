@@ -6,7 +6,7 @@ import { NKRouter } from '@/core/NKRouter';
 import { OrganizationStatusTag } from '@/core/components/tags/OrganizationStatusTag';
 import { useGetOrganizationById } from '@/core/hooks/query/admin-organizations.hook';
 import { useGetUserById } from '@/core/hooks/query/admin-users.hook';
-import NKLink from '@/core/routing/components/NKLink';
+import FCLink from '@/core/routing/components/FCLink';
 
 export const Route = createFileRoute('/_admin-layout/dashboard/organizations/$id')({
     component: RouteComponent,
@@ -54,7 +54,7 @@ function RouteComponent() {
                     {organization?.shutdownDay ? moment(organization?.shutdownDay).format('DD/MM/YYYY') : '-'}
                 </Descriptions.Item>
                 <Descriptions.Item label="CEO" span={3}>
-                    <NKLink href={NKRouter.dashboard.users.detail(ceo?.id || '')}>{ceo?.fullName}</NKLink>
+                    <FCLink href={NKRouter.dashboard.users.detail(ceo?.id || '')}>{ceo?.fullName}</FCLink>
                 </Descriptions.Item>
             </Descriptions>
         </div>

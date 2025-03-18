@@ -16,7 +16,7 @@ import { UserStatusTag } from '@/core/components/tags/UserStatusTag';
 import { useAuth } from '@/core/contexts/AuthContext';
 import { useBanUserById, useGetAllUsers, useUnBanUserById } from '@/core/hooks/query/admin-users.hook';
 import { UserModel, UserRole, UserStatus } from '@/core/models/user';
-import { useNKRouter } from '@/core/routing/hooks/NKRouter';
+import { useFCRouter } from '@/core/routing/hooks/FCRouter';
 
 export const Route = createFileRoute('/_admin-layout/dashboard/users/')({
     component: RouteComponent,
@@ -31,7 +31,7 @@ const defaultValues: FilterUser = {
 };
 
 function RouteComponent() {
-    const router = useNKRouter();
+    const router = useFCRouter();
     const { data } = useGetAllUsers();
 
     const { currentUser } = useAuth();

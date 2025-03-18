@@ -14,7 +14,7 @@ import FCTextField from '@/core/components/form/FCTextField';
 import { RequestStatusTag } from '@/core/components/tags/RequestStatusTag';
 import { useApproveAllRequests, useApproveRequest, useGetAllRequests, useHideRequest } from '@/core/hooks/query/admin-requests.hook';
 import { RequestModel, RequestStatus } from '@/core/models/request';
-import { useNKRouter } from '@/core/routing/hooks/NKRouter';
+import { useFCRouter } from '@/core/routing/hooks/FCRouter';
 
 export const Route = createFileRoute('/_admin-layout/dashboard/requests/')({
     component: RouteComponent,
@@ -36,7 +36,7 @@ function RouteComponent() {
 
     const isPending = React.useMemo(() => isPendingApprove || isPendingHide, [isPendingApprove, isPendingHide]);
 
-    const router = useNKRouter();
+    const router = useFCRouter();
 
     const { mutate: approveAll, isPending: isPendingAll } = useApproveAllRequests();
     const methods = useForm<FilterRequest>({ defaultValues });

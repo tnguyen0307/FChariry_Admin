@@ -6,7 +6,7 @@ import { NKRouter } from '@/core/NKRouter';
 import { RequestStatusTag } from '@/core/components/tags/RequestStatusTag';
 import { useGetRequestById } from '@/core/hooks/query/admin-requests.hook';
 import { useGetUserById } from '@/core/hooks/query/admin-users.hook';
-import NKLink from '@/core/routing/components/NKLink';
+import FCLink from '@/core/routing/components/FCLink';
 
 export const Route = createFileRoute('/_admin-layout/dashboard/requests/$id')({
     component: RouteComponent,
@@ -47,7 +47,7 @@ function RouteComponent() {
                     </Space>
                 </Descriptions.Item>
                 <Descriptions.Item label="Request User" span={1}>
-                    <NKLink href={NKRouter.dashboard.users.detail(requestUser?.id || '')}>{requestUser?.fullName}</NKLink>
+                    <FCLink href={NKRouter.dashboard.users.detail(requestUser?.id || '')}>{requestUser?.fullName}</FCLink>
                 </Descriptions.Item>
                 <Descriptions.Item label="Phone number" span={2}>
                     {request?.phone}

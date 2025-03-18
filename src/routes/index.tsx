@@ -1,23 +1,21 @@
 import React from 'react';
 
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { Button } from 'antd';
 import joi from 'joi';
 import { toast } from 'react-toastify';
 import Cookies from 'universal-cookie';
 
 import { NKConstant } from '@/core/NKConstant';
-import { NKRouter } from '@/core/NKRouter';
 import { authApi } from '@/core/api/auth';
 import { usersApi } from '@/core/api/users';
 import { queryClient } from '@/core/common/config';
 import FormBuilder from '@/core/components/form/FormBuilder';
 import { FCFormType } from '@/core/components/form/FCForm';
 import { QUERY_CONSTANT } from '@/core/constant/query';
-import { useNKRouter } from '@/core/routing/hooks/NKRouter';
+import { useFCRouter } from '@/core/routing/hooks/FCRouter';
 
 const Page: React.FunctionComponent = () => {
-    const router = useNKRouter();
+    const router = useFCRouter();
 
     return (
         <div className="flex min-h-screen">

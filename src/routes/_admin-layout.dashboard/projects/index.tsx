@@ -14,7 +14,7 @@ import FCTextField from '@/core/components/form/FCTextField';
 import { ProjectStatusTag } from '@/core/components/tags/ProjectStatusTag';
 import { useApproveAllProjects, useApproveProject, useGetAllProjects, useHideProject } from '@/core/hooks/query/admin-projects.hook';
 import { ProjectModel, ProjectStatus } from '@/core/models/project';
-import { useNKRouter } from '@/core/routing/hooks/NKRouter';
+import { useFCRouter } from '@/core/routing/hooks/FCRouter';
 
 export const Route = createFileRoute('/_admin-layout/dashboard/projects/')({
     component: RouteComponent,
@@ -36,7 +36,7 @@ function RouteComponent() {
 
     const isPending = React.useMemo(() => isPendingApprove || isPendingHide, [isPendingApprove, isPendingHide]);
 
-    const router = useNKRouter();
+    const router = useFCRouter();
 
     const { mutate: approveAll, isPending: isPendingAll } = useApproveAllProjects();
     const methods = useForm<FilterProject>({ defaultValues });

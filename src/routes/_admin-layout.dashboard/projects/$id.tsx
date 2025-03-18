@@ -7,7 +7,7 @@ import { ProjectStatusTag } from '@/core/components/tags/ProjectStatusTag';
 import { useGetOrganizationById } from '@/core/hooks/query/admin-organizations.hook';
 import { useGetProjectById } from '@/core/hooks/query/admin-projects.hook';
 import { useGetUserById } from '@/core/hooks/query/admin-users.hook';
-import NKLink from '@/core/routing/components/NKLink';
+import FCLink from '@/core/routing/components/FCLink';
 
 export const Route = createFileRoute('/_admin-layout/dashboard/projects/$id')({
     component: RouteComponent,
@@ -59,10 +59,10 @@ function RouteComponent() {
                     {project?.actualEndTime ? moment(project?.actualEndTime).format('DD/MM/YYYY') : '-'}
                 </Descriptions.Item>
                 <Descriptions.Item label="Organization" span={3}>
-                    <NKLink href={NKRouter.dashboard.organizations.detail(organization?.id || '')}>{organization?.organizationName}</NKLink>
+                    <FCLink href={NKRouter.dashboard.organizations.detail(organization?.id || '')}>{organization?.organizationName}</FCLink>
                 </Descriptions.Item>
                 <Descriptions.Item label="Leader" span={3}>
-                    <NKLink href={NKRouter.dashboard.users.detail(leader?.id || '')}>{leader?.fullName}</NKLink>
+                    <FCLink href={NKRouter.dashboard.users.detail(leader?.id || '')}>{leader?.fullName}</FCLink>
                 </Descriptions.Item>
             </Descriptions>
         </div>

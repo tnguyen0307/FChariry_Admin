@@ -19,7 +19,7 @@ import {
     useHideOrganization,
 } from '@/core/hooks/query/admin-organizations.hook';
 import { OrganizationModel, OrganizationStatus } from '@/core/models/organization';
-import { useNKRouter } from '@/core/routing/hooks/NKRouter';
+import { useFCRouter } from '@/core/routing/hooks/FCRouter';
 
 export const Route = createFileRoute('/_admin-layout/dashboard/organizations/')({
     component: RouteComponent,
@@ -41,7 +41,7 @@ function RouteComponent() {
     const isPending = React.useMemo(() => isPendingApprove || isPendingHide, [isPendingApprove, isPendingHide]);
     const { mutate: approveAll, isPending: isPendingAll } = useApproveAllOrganizations();
 
-    const router = useNKRouter();
+    const router = useFCRouter();
 
     const methods = useForm<FilterOrganization>({ defaultValues });
 

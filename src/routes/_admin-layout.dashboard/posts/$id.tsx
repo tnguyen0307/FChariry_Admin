@@ -6,7 +6,7 @@ import { NKRouter } from '@/core/NKRouter';
 import { PostStatusTag } from '@/core/components/tags/PostStatusTag';
 import { useGetPostById } from '@/core/hooks/query/admin-posts.hook';
 import { useGetUserById } from '@/core/hooks/query/admin-users.hook';
-import NKLink from '@/core/routing/components/NKLink';
+import FCLink from '@/core/routing/components/FCLink';
 
 export const Route = createFileRoute('/_admin-layout/dashboard/posts/$id')({
     component: RouteComponent,
@@ -42,7 +42,7 @@ function RouteComponent() {
                     <PostStatusTag status={post?.postStatus} />
                 </Descriptions.Item>
                 <Descriptions.Item label="Author" span={3}>
-                    <NKLink href={NKRouter.dashboard.users.detail(author?.id || '')}>{author?.fullName}</NKLink>
+                    <FCLink href={NKRouter.dashboard.users.detail(author?.id || '')}>{author?.fullName}</FCLink>
                 </Descriptions.Item>
                 <Descriptions.Item label="Created At">{post.createdAt ? moment(post.createdAt).format('DD/MM/YYYY') : '-'}</Descriptions.Item>
                 <Descriptions.Item label="Updated At">{post.updatedAt ? moment(post.updatedAt).format('DD/MM/YYYY') : '-'}</Descriptions.Item>
