@@ -10,7 +10,7 @@ import { NKConstant } from '@/core/NKConstant';
 import { NKRouter } from '@/core/NKRouter';
 import { authApi } from '@/core/api/auth';
 import { usersApi } from '@/core/api/users';
-import { queryClient } from '@/core/common/configGlobal';
+import { queryClient } from '@/core/common/config';
 import FormBuilder from '@/core/components/form/FormBuilder';
 import { FCFormType } from '@/core/components/form/FCForm';
 import { QUERY_CONSTANT } from '@/core/constant/query';
