@@ -5,8 +5,8 @@ import _ from 'lodash';
 import { Cookies, useCookies } from 'react-cookie';
 
 import { NKConstant } from '../NKConstant';
-import { useRefreshToken } from '../hooks/react-query/auth.hook';
-import { useGetCurrentUser } from '../hooks/react-query/users.hook';
+import { useRefreshToken } from '../hooks/query/auth.hook';
+import { useGetCurrentUser } from '../hooks/query/users.hook';
 import { CurrentUserModel } from '../models/user';
 import { isValidToken } from '../utils/token';
 

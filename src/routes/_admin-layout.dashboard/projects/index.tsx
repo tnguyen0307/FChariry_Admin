@@ -12,7 +12,7 @@ import { NKRouter } from '@/core/NKRouter';
 import FCFormField from '@/core/components/form/FCFormField';
 import FCTextField from '@/core/components/form/FCTextField';
 import { ProjectStatusTag } from '@/core/components/tags/ProjectStatusTag';
-import { useApproveAllProjects, useApproveProject, useGetAllProjects, useHideProject } from '@/core/hooks/react-query/admin-projects.hook';
+import { useApproveAllProjects, useApproveProject, useGetAllProjects, useHideProject } from '@/core/hooks/query/admin-projects.hook';
 import { ProjectModel, ProjectStatus } from '@/core/models/project';
 import { useNKRouter } from '@/core/routing/hooks/NKRouter';
 

@@ -12,7 +12,7 @@ import { NKRouter } from '@/core/NKRouter';
 import FCFormField from '@/core/components/form/FCFormField';
 import FCTextField from '@/core/components/form/FCTextField';
 import { PostStatusTag } from '@/core/components/tags/PostStatusTag';
-import { useApproveAllPosts, useApprovePost, useGetAllPosts, useHidePost } from '@/core/hooks/react-query/admin-posts.hook';
+import { useApproveAllPosts, useApprovePost, useGetAllPosts, useHidePost } from '@/core/hooks/query/admin-posts.hook';
 import { PostModel, PostStatus } from '@/core/models/post';
 import { useNKRouter } from '@/core/routing/hooks/NKRouter';
 

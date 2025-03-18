@@ -4,8 +4,8 @@ import moment from 'moment';
 
 import { NKRouter } from '@/core/NKRouter';
 import { RequestStatusTag } from '@/core/components/tags/RequestStatusTag';
-import { useGetRequestById } from '@/core/hooks/react-query/admin-requests.hook';
-import { useGetUserById } from '@/core/hooks/react-query/admin-users.hook';
+import { useGetRequestById } from '@/core/hooks/query/admin-requests.hook';
+import { useGetUserById } from '@/core/hooks/query/admin-users.hook';
 import NKLink from '@/core/routing/components/NKLink';
 
 export const Route = createFileRoute('/_admin-layout/dashboard/requests/$id')({

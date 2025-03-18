@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import { UserRoleTag } from '@/core/components/tags/UserRoleTag';
 import { UserStatusTag } from '@/core/components/tags/UserStatusTag';
-import { useGetUserById } from '@/core/hooks/react-query/admin-users.hook';
+import { useGetUserById } from '@/core/hooks/query/admin-users.hook';
 
 export const Route = createFileRoute('/_admin-layout/dashboard/users/$id')({
     component: RouteComponent,

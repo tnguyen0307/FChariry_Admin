@@ -12,7 +12,7 @@ import { NKRouter } from '@/core/NKRouter';
 import FCFormField from '@/core/components/form/FCFormField';
 import FCTextField from '@/core/components/form/FCTextField';
 import { RequestStatusTag } from '@/core/components/tags/RequestStatusTag';
-import { useApproveAllRequests, useApproveRequest, useGetAllRequests, useHideRequest } from '@/core/hooks/react-query/admin-requests.hook';
+import { useApproveAllRequests, useApproveRequest, useGetAllRequests, useHideRequest } from '@/core/hooks/query/admin-requests.hook';
 import { RequestModel, RequestStatus } from '@/core/models/request';
 import { useNKRouter } from '@/core/routing/hooks/NKRouter';
 

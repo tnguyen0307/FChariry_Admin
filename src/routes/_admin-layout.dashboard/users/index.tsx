@@ -14,7 +14,7 @@ import FCTextField from '@/core/components/form/FCTextField';
 import { UserRoleTag } from '@/core/components/tags/UserRoleTag';
 import { UserStatusTag } from '@/core/components/tags/UserStatusTag';
 import { useAuth } from '@/core/contexts/AuthContext';
-import { useBanUserById, useGetAllUsers, useUnBanUserById } from '@/core/hooks/react-query/admin-users.hook';
+import { useBanUserById, useGetAllUsers, useUnBanUserById } from '@/core/hooks/query/admin-users.hook';
 import { UserModel, UserRole, UserStatus } from '@/core/models/user';
 import { useNKRouter } from '@/core/routing/hooks/NKRouter';
 

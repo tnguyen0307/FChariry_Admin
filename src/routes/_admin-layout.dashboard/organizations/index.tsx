@@ -17,7 +17,7 @@ import {
     useApproveOrganization,
     useGetAllOrganizations,
     useHideOrganization,
-} from '@/core/hooks/react-query/admin-organizations.hook';
+} from '@/core/hooks/query/admin-organizations.hook';
 import { OrganizationModel, OrganizationStatus } from '@/core/models/organization';
 import { useNKRouter } from '@/core/routing/hooks/NKRouter';
 

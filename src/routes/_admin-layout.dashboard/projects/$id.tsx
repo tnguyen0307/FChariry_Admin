@@ -4,9 +4,9 @@ import moment from 'moment';
 
 import { NKRouter } from '@/core/NKRouter';
 import { ProjectStatusTag } from '@/core/components/tags/ProjectStatusTag';
-import { useGetOrganizationById } from '@/core/hooks/react-query/admin-organizations.hook';
-import { useGetProjectById } from '@/core/hooks/react-query/admin-projects.hook';
-import { useGetUserById } from '@/core/hooks/react-query/admin-users.hook';
+import { useGetOrganizationById } from '@/core/hooks/query/admin-organizations.hook';
+import { useGetProjectById } from '@/core/hooks/query/admin-projects.hook';
+import { useGetUserById } from '@/core/hooks/query/admin-users.hook';
 import NKLink from '@/core/routing/components/NKLink';
 
 export const Route = createFileRoute('/_admin-layout/dashboard/projects/$id')({

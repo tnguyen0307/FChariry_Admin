@@ -8,7 +8,6 @@ import { Building, User } from 'lucide-react';
 
 import { NKRouter } from '@/core/NKRouter';
 import { useAuth } from '@/core/contexts/AuthContext';
-import { useDeviceSize } from '@/core/hooks/useDeviceSize';
 import { useNKRouter } from '@/core/routing/hooks/NKRouter';
 
 const { Content, Sider } = Layout;
@@ -16,7 +15,6 @@ const { Content, Sider } = Layout;
 interface DashboardLayoutProps extends React.PropsWithChildren {}
 
 const DashboardLayout: React.FunctionComponent<DashboardLayoutProps> = ({ children }) => {
-    const size = useDeviceSize();
     const router = useNKRouter();
 
     const { logout } = useAuth();
@@ -27,7 +25,7 @@ const DashboardLayout: React.FunctionComponent<DashboardLayoutProps> = ({ childr
                 <Sider
                     collapsed={false}
                     width={250}
-                    collapsedWidth={size === 'sm' ? 0 : 80}
+                    collapsedWidth={80}
                     className="relative border-0 border-r border-solid !border-black !bg-white "
                 >
                     <div className="flex h-full flex-col justify-between">
