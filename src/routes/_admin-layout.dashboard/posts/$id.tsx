@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { Descriptions, Typography } from 'antd';
 import moment from 'moment';
 
-import { NKRouter } from '@/core/NKRouter';
+import { FCRouter } from '@/core/FCRouter';
 import { PostStatusTag } from '@/core/components/tags/PostStatusTag';
 import { useGetPostById } from '@/core/hooks/query/admin-posts.hook';
 import { useGetUserById } from '@/core/hooks/query/admin-users.hook';
@@ -42,7 +42,7 @@ function RouteComponent() {
                     <PostStatusTag status={post?.postStatus} />
                 </Descriptions.Item>
                 <Descriptions.Item label="Author" span={3}>
-                    <FCLink href={NKRouter.dashboard.users.detail(author?.id || '')}>{author?.fullName}</FCLink>
+                    <FCLink href={FCRouter.dashboard.users.detail(author?.id || '')}>{author?.fullName}</FCLink>
                 </Descriptions.Item>
                 <Descriptions.Item label="Created At">{post.createdAt ? moment(post.createdAt).format('DD/MM/YYYY') : '-'}</Descriptions.Item>
                 <Descriptions.Item label="Updated At">{post.updatedAt ? moment(post.updatedAt).format('DD/MM/YYYY') : '-'}</Descriptions.Item>

@@ -1,4 +1,4 @@
-export const NKConstant = {
+export const FCConstant = {
     LOCAL_STORAGE_KEY: 'app' as const,
     LOCAL_STORAGE_COMPANY_ID_KEY: 'key-company-id' as const,
     SUPPORTED_LOCALES: ['en', 'vi'] as const,

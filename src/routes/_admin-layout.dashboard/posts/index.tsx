@@ -8,7 +8,7 @@ import moment from 'moment';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-import { NKRouter } from '@/core/NKRouter';
+import { FCRouter } from '@/core/FCRouter';
 import FCFormField from '@/core/components/form/FCFormField';
 import FCTextField from '@/core/components/form/FCTextField';
 import { PostStatusTag } from '@/core/components/tags/PostStatusTag';
@@ -141,7 +141,7 @@ function RouteComponent() {
                                 key: 'view',
                                 label: 'View',
                                 onClick: () => {
-                                    router.push(NKRouter.dashboard.posts.detail(record.id));
+                                    router.push(FCRouter.dashboard.posts.detail(record.id));
                                 },
                             });
 

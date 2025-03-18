@@ -6,7 +6,7 @@ import { ArrowRepeat, PointerDownFill, Receipt } from 'akar-icons';
 import { Button, Layout, Menu } from 'antd';
 import { Building, User } from 'lucide-react';
 
-import { NKRouter } from '@/core/NKRouter';
+import { FCRouter } from '@/core/FCRouter';
 import { useAuth } from '@/core/contexts/AuthContext';
 import { useFCRouter } from '@/core/routing/hooks/FCRouter';
 
@@ -44,31 +44,31 @@ const DashboardLayout: React.FunctionComponent<DashboardLayoutProps> = ({ childr
                                         key: 'users',
                                         icon: <User className="h-4 w-4" />,
                                         label: 'Users',
-                                        onClick: () => router.push(NKRouter.dashboard.users.index()),
+                                        onClick: () => router.push(FCRouter.dashboard.users.index()),
                                     },
                                     {
                                         key: 'organizations',
                                         icon: <Building className="h-4 w-4" />,
                                         label: 'Organizations',
-                                        onClick: () => router.push(NKRouter.dashboard.organizations.index()),
+                                        onClick: () => router.push(FCRouter.dashboard.organizations.index()),
                                     },
                                     {
                                         key: 'projects',
                                         icon: <PointerDownFill className="h-4 w-4" />,
                                         label: 'Projects',
-                                        onClick: () => router.push(NKRouter.dashboard.projects.index()),
+                                        onClick: () => router.push(FCRouter.dashboard.projects.index()),
                                     },
                                     {
                                         key: 'posts',
                                         icon: <Receipt className="h-4 w-4" />,
                                         label: 'Posts',
-                                        onClick: () => router.push(NKRouter.dashboard.posts.index()),
+                                        onClick: () => router.push(FCRouter.dashboard.posts.index()),
                                     },
                                     {
                                         key: 'requests',
                                         icon: <ArrowRepeat className="h-4 w-4" />,
                                         label: 'Requests',
-                                        onClick: () => router.push(NKRouter.dashboard.requests.index()),
+                                        onClick: () => router.push(FCRouter.dashboard.requests.index()),
                                     },
                                 ]}
                             />

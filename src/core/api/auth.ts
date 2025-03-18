@@ -1,6 +1,6 @@
 import Cookies from 'universal-cookie';
 
-import { NKConstant } from '../NKConstant';
+import { FCConstant } from '../FCConstant';
 import { TokenModel } from '../models/auth';
 import http from './http';
 
@@ -12,12 +12,12 @@ export const authApi = {
 
         const cookies = new Cookies();
 
-        cookies.set(NKConstant.TOKEN_COOKIE_KEY, res.data.token, {
+        cookies.set(FCConstant.TOKEN_COOKIE_KEY, res.data.token, {
             maxAge: 60 * 60 * 24 * 30 * 12,
             path: '/',
         });
 
-        cookies.set(NKConstant.REFRESH_TOKEN_COOKIE_KEY, res.data.refreshToken, {
+        cookies.set(FCConstant.REFRESH_TOKEN_COOKIE_KEY, res.data.refreshToken, {
             maxAge: 60 * 60 * 24 * 30 * 12,
             path: '/',
         });
@@ -27,16 +27,16 @@ export const authApi = {
 
     refreshToken: async () => {
         const cookies = new Cookies();
-        const refreshToken = cookies.get(NKConstant.REFRESH_TOKEN_COOKIE_KEY) || '';
+        const refreshToken = cookies.get(FCConstant.REFRESH_TOKEN_COOKIE_KEY) || '';
 
         const res = await http.post<TokenModel>(`${ENDPOINT}/refresh`, { refreshToken });
 
-        cookies.set(NKConstant.TOKEN_COOKIE_KEY, res.data.token, {
+        cookies.set(FCConstant.TOKEN_COOKIE_KEY, res.data.token, {
             maxAge: 60 * 60 * 24 * 30 * 12,
             path: '/',
         });
 
-        cookies.set(NKConstant.REFRESH_TOKEN_COOKIE_KEY, res.data.refreshToken, {
+        cookies.set(FCConstant.REFRESH_TOKEN_COOKIE_KEY, res.data.refreshToken, {
             maxAge: 60 * 60 * 24 * 30 * 12,
             path: '/',
         });

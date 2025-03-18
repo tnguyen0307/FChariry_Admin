@@ -5,7 +5,7 @@ import joi from 'joi';
 import { toast } from 'react-toastify';
 import Cookies from 'universal-cookie';
 
-import { NKConstant } from '@/core/NKConstant';
+import { FCConstant } from '@/core/FCConstant';
 import { authApi } from '@/core/api/auth';
 import { usersApi } from '@/core/api/users';
 import { queryClient } from '@/core/common/config';
@@ -54,8 +54,8 @@ const Page: React.FunctionComponent = () => {
                                     tlds: false,
                                 })
                                 .required()
-                                .messages(NKConstant.MESSAGE_FORMAT),
-                            password: joi.string().required().messages(NKConstant.MESSAGE_FORMAT),
+                                .messages(FCConstant.MESSAGE_FORMAT),
+                            password: joi.string().required().messages(FCConstant.MESSAGE_FORMAT),
                         }}
                         btnLabel="Sign in"
                         onExtraSuccessAction={(data) => {
@@ -87,9 +87,9 @@ export const Route = createFileRoute('/')({
         });
 
         const cookies = new Cookies();
-        const token = cookies.get(NKConstant.TOKEN_COOKIE_KEY);
+        const token = cookies.get(FCConstant.TOKEN_COOKIE_KEY);
         if (!token && token === 'undefined') {
-            cookies.remove(NKConstant.TOKEN_COOKIE_KEY);
+            cookies.remove(FCConstant.TOKEN_COOKIE_KEY);
         }
 
         if (user) {

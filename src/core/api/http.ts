@@ -1,19 +1,19 @@
 import axios, { AxiosError } from 'axios';
 import Cookies from 'universal-cookie';
 
-import { NKConfig } from '../NKConfig';
-import { NKConstant } from '../NKConstant';
+import { FCConfig } from '../FCConfig';
+import { FCConstant } from '../FCConstant';
 
 export const http = axios.create({
-    baseURL: NKConfig.API_URL,
+    baseURL: FCConfig.API_URL,
     withCredentials: false,
 });
 
 http.interceptors.request.use(function (req) {
     const cookies = new Cookies();
-    const token = cookies.get(NKConstant.TOKEN_COOKIE_KEY) || '';
+    const token = cookies.get(FCConstant.TOKEN_COOKIE_KEY) || '';
 
-    if (token && req.headers) req.headers[NKConstant.TOKEN_HEADER_KEY] = `Bearer ${token}`;
+    if (token && req.headers) req.headers[FCConstant.TOKEN_HEADER_KEY] = `Bearer ${token}`;
 
     return req;
 });
@@ -24,7 +24,7 @@ http.interceptors.response.use(
     function (error: AxiosError) {
         if (error.response?.status === 401) {
             const cookies = new Cookies();
-            cookies.remove(NKConstant.TOKEN_COOKIE_KEY);
+            cookies.remove(FCConstant.TOKEN_COOKIE_KEY);
         }
 
         return Promise.reject(error.response);

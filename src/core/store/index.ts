@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
-import { NKConfig } from '../NKConfig';
+import { FCConfig } from '../FCConfig';
 import { apiReducer } from './api';
 import { ApiState } from './api/api.interface';
 import { apiMiddleware } from './api/api.middleware';
@@ -25,7 +25,7 @@ const reducers = combineReducers({
 export const store = configureStore({
     reducer: reducers,
     middleware,
-    devTools: NKConfig.NODE_ENV !== 'production',
+    devTools: FCConfig.NODE_ENV !== 'production',
 });
 
 sageMiddleware.run(rootSaga);

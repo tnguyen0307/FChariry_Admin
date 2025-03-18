@@ -1,4 +1,4 @@
-export const NKRouter = {
+export const FCRouter = {
     index: () => '/',
     dashboard: {
         index: () => '/dashboard',

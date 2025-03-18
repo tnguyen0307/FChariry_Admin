@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { Descriptions, Image, Space, Tag, Typography } from 'antd';
 import moment from 'moment';
 
-import { NKRouter } from '@/core/NKRouter';
+import { FCRouter } from '@/core/FCRouter';
 import { RequestStatusTag } from '@/core/components/tags/RequestStatusTag';
 import { useGetRequestById } from '@/core/hooks/query/admin-requests.hook';
 import { useGetUserById } from '@/core/hooks/query/admin-users.hook';
@@ -47,7 +47,7 @@ function RouteComponent() {
                     </Space>
                 </Descriptions.Item>
                 <Descriptions.Item label="Request User" span={1}>
-                    <FCLink href={NKRouter.dashboard.users.detail(requestUser?.id || '')}>{requestUser?.fullName}</FCLink>
+                    <FCLink href={FCRouter.dashboard.users.detail(requestUser?.id || '')}>{requestUser?.fullName}</FCLink>
                 </Descriptions.Item>
                 <Descriptions.Item label="Phone number" span={2}>
                     {request?.phone}

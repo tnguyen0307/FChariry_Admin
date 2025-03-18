@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { Descriptions, Typography } from 'antd';
 import moment from 'moment';
 
-import { NKRouter } from '@/core/NKRouter';
+import { FCRouter } from '@/core/FCRouter';
 import { OrganizationStatusTag } from '@/core/components/tags/OrganizationStatusTag';
 import { useGetOrganizationById } from '@/core/hooks/query/admin-organizations.hook';
 import { useGetUserById } from '@/core/hooks/query/admin-users.hook';
@@ -54,7 +54,7 @@ function RouteComponent() {
                     {organization?.shutdownDay ? moment(organization?.shutdownDay).format('DD/MM/YYYY') : '-'}
                 </Descriptions.Item>
                 <Descriptions.Item label="CEO" span={3}>
-                    <FCLink href={NKRouter.dashboard.users.detail(ceo?.id || '')}>{ceo?.fullName}</FCLink>
+                    <FCLink href={FCRouter.dashboard.users.detail(ceo?.id || '')}>{ceo?.fullName}</FCLink>
                 </Descriptions.Item>
             </Descriptions>
         </div>

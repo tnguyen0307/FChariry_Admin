@@ -4,7 +4,7 @@ import { isAxiosError } from 'axios';
 import _ from 'lodash';
 import { Cookies, useCookies } from 'react-cookie';
 
-import { NKConstant } from '../NKConstant';
+import { FCConstant } from '../FCConstant';
 import { useRefreshToken } from '../hooks/query/auth.hook';
 import { useGetCurrentUser } from '../hooks/query/users.hook';
 import { CurrentUserModel } from '../models/user';
@@ -52,14 +52,14 @@ export const AuthProvider: React.FunctionComponent<AuthProviderProps> = ({ child
     const { data: fetchedUser, isError, error, refetch, isFetching } = useGetCurrentUser();
     const { mutate: postRefreshTokenMutation } = useRefreshToken();
 
-    const [cookies, _, removeCookie] = useCookies([NKConstant.TOKEN_COOKIE_KEY, NKConstant.REFRESH_TOKEN_COOKIE_KEY]);
+    const [cookies, _, removeCookie] = useCookies([FCConstant.TOKEN_COOKIE_KEY, FCConstant.REFRESH_TOKEN_COOKIE_KEY]);
 
     const logout = React.useCallback(() => {
         const cookies = new Cookies();
-        cookies.remove(NKConstant.TOKEN_COOKIE_KEY, {
+        cookies.remove(FCConstant.TOKEN_COOKIE_KEY, {
             path: '/',
         });
-        cookies.remove(NKConstant.REFRESH_TOKEN_COOKIE_KEY, {
+        cookies.remove(FCConstant.REFRESH_TOKEN_COOKIE_KEY, {
             path: '/',
         });
 
@@ -123,7 +123,7 @@ export const AuthProvider: React.FunctionComponent<AuthProviderProps> = ({ child
         }
 
         if (errorObj.statusCode === 401) {
-            removeCookie(NKConstant.TOKEN_COOKIE_KEY);
+            removeCookie(FCConstant.TOKEN_COOKIE_KEY);
             postRefreshTokenMutation();
         }
     }, [errorObj, isError, postRefreshTokenMutation]);
@@ -134,7 +134,7 @@ export const AuthProvider: React.FunctionComponent<AuthProviderProps> = ({ child
             return;
         }
 
-        if (cookies[NKConstant.TOKEN_COOKIE_KEY] || cookies[NKConstant.REFRESH_TOKEN_COOKIE_KEY]) {
+        if (cookies[FCConstant.TOKEN_COOKIE_KEY] || cookies[FCConstant.REFRESH_TOKEN_COOKIE_KEY]) {
             setIsLogin(true);
             setStatus('authenticated');
             return;
