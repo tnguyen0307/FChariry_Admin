@@ -11,7 +11,7 @@ export interface PostModel {
 
 export enum PostStatus {
     PENDING = 'PENDING',
-    ACTIVE = 'ACTIVE',
-    HIDDEN = 'HIDDEN',
+    APPROVED = 'APPROVED',
+    REJECTED = 'REJECTED',
     BANNED = 'BANNED',
 }

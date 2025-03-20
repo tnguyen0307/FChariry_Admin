@@ -23,8 +23,8 @@ export const adminRequestsApi = {
         return res?.data;
     },
 
-    hide: async (id: string) => {
-        const res = await http.put(`${ENDPOINT}/hide/${id}`);
+    reject: async (id: string) => {
+        const res = await http.put(`${ENDPOINT}/reject/${id}`);
 
         return res?.data;
     },

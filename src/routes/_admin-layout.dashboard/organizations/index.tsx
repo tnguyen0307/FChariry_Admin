@@ -13,10 +13,12 @@ import FCFormField from '@/core/components/form/FCFormField';
 import FCTextField from '@/core/components/form/FCTextField';
 import { OrganizationStatusTag } from '@/core/components/tags/OrganizationStatusTag';
 import {
-    useApproveAllOrganizations,
-    useApproveOrganization,
+    useActivateAllOrganizations,
+    useActivateOrganization,
+    useBanOrganization,
     useGetAllOrganizations,
-    useHideOrganization,
+    useRejectOrganization,
+    useUnbanOrganization,
 } from '@/core/hooks/query/admin-organizations.hook';
 import { OrganizationModel, OrganizationStatus } from '@/core/models/organization';
 import { useFCRouter } from '@/core/routing/hooks/FCRouter';
@@ -35,11 +37,13 @@ const defaultValues: FilterOrganization = {
 
 function RouteComponent() {
     const { data } = useGetAllOrganizations();
-    const { mutate: approve, isPending: isPendingApprove } = useApproveOrganization();
-    const { mutate: hide, isPending: isPendingHide } = useHideOrganization();
+    const { mutate: activate, isPending: isPendingActivate } = useActivateOrganization();
+    const { mutate: reject, isPending: isPendingReject } = useRejectOrganization();
+    const { mutate: unban, isPending: isPendingUnban } = useUnbanOrganization();
+    const { mutate: ban, isPending: isPendingBan } = useBanOrganization();
 
-    const isPending = React.useMemo(() => isPendingApprove || isPendingHide, [isPendingApprove, isPendingHide]);
-    const { mutate: approveAll, isPending: isPendingAll } = useApproveAllOrganizations();
+    const isPending = React.useMemo(() => isPendingActivate || isPendingReject || isPendingUnban || isPendingBan, [isPendingActivate, isPendingReject, isPendingUnban, isPendingBan]);
+    const { mutate: activateAll, isPending: isPendingActivateAll } = useActivateAllOrganizations();
 
     const router = useFCRouter();
 
@@ -68,16 +72,16 @@ function RouteComponent() {
             <Typography.Title level={3}>Organization Management</Typography.Title>
             <Button
                 type="primary"
-                loading={isPendingAll}
+                loading={isPendingActivateAll}
                 onClick={() => {
-                    approveAll(null, {
+                    activateAll(null, {
                         onSuccess: () => {
-                            toast.success('All organizations approved successfully');
+                            toast.success('All organizations activated successfully');
                         },
                     });
                 }}
             >
-                Approve All
+                Activate All
             </Button>
             <FCFormField methods={methods} className="grid grid-cols-4 gap-2">
                 <FCTextField label="Search terms" name="searchTerms" />
@@ -162,9 +166,21 @@ function RouteComponent() {
                                     key: 'approve',
                                     label: 'Approve',
                                     onClick: () => {
-                                        approve(record.id, {
+                                        activate(record.id, {
                                             onSuccess: () => {
-                                                toast.success('Organization approved successfully');
+                                                toast.success('Organization activated successfully');
+                                            },
+                                        });
+                                    },
+                                });
+
+                                items.push({
+                                    key: 'reject',
+                                    label: 'Reject',
+                                    onClick: () => {
+                                        reject(record.id, {
+                                            onSuccess: () => {
+                                                toast.success('Organization rejected successfully');
                                             },
                                         });
                                     },
@@ -173,27 +189,26 @@ function RouteComponent() {
 
                             if (record.organizationStatus === OrganizationStatus.APPROVED) {
                                 items.push({
-                                    key: 'hide',
-                                    label: 'Hide',
+                                    key: 'ban',
+                                    label: 'Ban',
                                     onClick: () => {
-                                        hide(record.id, {
+                                        ban(record.id, {
                                             onSuccess: () => {
-                                                toast.success('Organization hidden successfully');
+                                                toast.success('Organization banned successfully');
                                             },
                                         });
                                     },
-                                    danger: true,
                                 });
                             }
 
-                            if (record.organizationStatus === OrganizationStatus.HIDDEN) {
+                            if (record.organizationStatus === OrganizationStatus.BANNED) {
                                 items.push({
-                                    key: 'unhide',
-                                    label: 'Unhide',
+                                    key: 'unban',
+                                    label: 'Unban',
                                     onClick: () => {
-                                        approve(record.id, {
+                                        unban(record.id, {
                                             onSuccess: () => {
-                                                toast.success('Organization unhidden successfully');
+                                                toast.success('Organization unbanned successfully');
                                             },
                                         });
                                     },

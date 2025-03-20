@@ -17,4 +17,5 @@ export enum OrganizationStatus {
     REJECTED = 'REJECTED',
     COMPLETED = 'COMPLETED',
     HIDDEN = 'HIDDEN',
+    BANNED = 'BANNED',
 }

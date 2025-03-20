@@ -20,7 +20,7 @@ export const useGetPostById = (id: string) => {
     });
 };
 
-export const useApprovePost = () => {
+export const useActivatePost = () => {
     const queryClient = useQueryClient();
     const [id, setId] = React.useState<string | null>(null);
 
@@ -28,7 +28,7 @@ export const useApprovePost = () => {
         mutationFn: (id: string) => {
             setId(id);
 
-            return adminPostsApi.approve(id);
+            return adminPostsApi.activate(id);
         },
         onSuccess: () => {
             queryClient.invalidateQueries({
@@ -42,29 +42,7 @@ export const useApprovePost = () => {
     });
 };
 
-export const useHidePost = () => {
-    const queryClient = useQueryClient();
-    const [id, setId] = React.useState<string | null>(null);
-
-    return useMutation({
-        mutationFn: (id: string) => {
-            setId(id);
-
-            return adminPostsApi.hide(id);
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries({
-                queryKey: [QUERY_CONSTANT.ALL_POSTS],
-            });
-
-            queryClient.invalidateQueries({
-                queryKey: [QUERY_CONSTANT.POST, id],
-            });
-        },
-    });
-};
-
-export const useApproveAllPosts = () => {
+export const useActivateAllPosts = () => {
     const queryClient = useQueryClient();
     const { data } = useGetAllPosts();
     return useMutation({
@@ -73,11 +51,77 @@ export const useApproveAllPosts = () => {
             if (!ids) {
                 return { success: false };
             }
-            return await Promise.all(ids.map((id) => adminPostsApi.approve(id)));
+            return await Promise.all(ids.map((id) => adminPostsApi.activate(id)));
         },
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: [QUERY_CONSTANT.ALL_POSTS],
+            });
+        },
+    });
+};
+
+export const useRejectPost = () => {
+  const queryClient = useQueryClient();
+  const [id, setId] = React.useState<string | null>(null);
+
+  return useMutation({
+      mutationFn: (id: string) => {
+          setId(id);
+
+          return adminPostsApi.reject(id);
+      },
+      onSuccess: () => {
+          queryClient.invalidateQueries({
+              queryKey: [QUERY_CONSTANT.ALL_POSTS],
+          });
+
+          queryClient.invalidateQueries({
+              queryKey: [QUERY_CONSTANT.POST, id],
+          });
+      },
+  });
+};
+
+export const useBanPost = () => {
+    const queryClient = useQueryClient();
+    const [id, setId] = React.useState<string | null>(null);
+
+    return useMutation({
+        mutationFn: (id: string) => {
+            setId(id);
+
+            return adminPostsApi.ban(id);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: [QUERY_CONSTANT.ALL_POSTS],
+            });
+            
+            queryClient.invalidateQueries({
+                queryKey: [QUERY_CONSTANT.POST, id],
+            });
+        },
+    });
+};
+
+export const useUnbanPost = () => {
+    const queryClient = useQueryClient();
+    const [id, setId] = React.useState<string | null>(null);
+
+    return useMutation({
+        mutationFn: (id: string) => {
+            setId(id);
+
+            return adminPostsApi.unban(id);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: [QUERY_CONSTANT.ALL_POSTS],
+            });
+
+            queryClient.invalidateQueries({
+                queryKey: [QUERY_CONSTANT.POST, id],
             });
         },
     });

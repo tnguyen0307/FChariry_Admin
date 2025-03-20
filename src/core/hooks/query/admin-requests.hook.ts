@@ -6,8 +6,6 @@ import { adminRequestsApi } from '@/core/api/admin/requests';
 import { QUERY_CONSTANT } from '@/core/constant/query';
 import { RequestStatus } from '@/core/models/request';
 
-import { useGetAllProjects } from './admin-projects.hook';
-
 export const useGetAllRequests = () => {
     return useQuery({
         queryKey: [QUERY_CONSTANT.ALL_REQUESTS],
@@ -44,7 +42,7 @@ export const useApproveRequest = () => {
     });
 };
 
-export const useHideRequest = () => {
+export const useRejectRequest = () => {
     const queryClient = useQueryClient();
     const [id, setId] = React.useState<string | null>(null);
 
@@ -52,7 +50,7 @@ export const useHideRequest = () => {
         mutationFn: (id: string) => {
             setId(id);
 
-            return adminRequestsApi.hide(id);
+            return adminRequestsApi.reject(id);
         },
         onSuccess: () => {
             queryClient.invalidateQueries({

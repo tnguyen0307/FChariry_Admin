@@ -6,17 +6,18 @@ import { ProjectStatus } from '@/core/models/project';
 import { capitalize } from '@/core/utils/string.helper';
 
 interface ProjectStatusTagProps {
-    status: ProjectStatus;
+  status: ProjectStatus;
 }
 
 const statusColorMap = {
-    [ProjectStatus.PENDING]: 'blue',
-    [ProjectStatus.APPROVED]: 'green',
-    [ProjectStatus.REJECTED]: 'red',
-    [ProjectStatus.COMPLETED]: 'green',
-    [ProjectStatus.HIDDEN]: 'red',
+  [ProjectStatus.PENDING]: 'blue',
+  [ProjectStatus.APPROVED]: 'green',
+  [ProjectStatus.REJECTED]: 'red',
+  [ProjectStatus.COMPLETED]: 'green',
+  [ProjectStatus.HIDDEN]: 'red',
+  [ProjectStatus.BANNED]: 'red',
 };
 
 export const ProjectStatusTag: React.FC<ProjectStatusTagProps> = ({ status }) => {
-    return <Tag color={statusColorMap[status]}>{capitalize(status)}</Tag>;
+  return <Tag color={statusColorMap[status]}>{capitalize(status)}</Tag>;
 };

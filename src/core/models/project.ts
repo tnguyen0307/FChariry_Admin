@@ -22,5 +22,6 @@ export enum ProjectStatus {
     APPROVED = 'APPROVED',
     REJECTED = 'REJECTED',
     COMPLETED = 'COMPLETED',
+    BANNED = 'BANNED',
     HIDDEN = 'HIDDEN',
 }

@@ -20,7 +20,9 @@ export const useGetOrganizationById = (id: string) => {
     });
 };
 
-export const useApproveOrganization = () => {
+
+
+export const useActivateOrganization = () => {
     const queryClient = useQueryClient();
     const [id, setId] = React.useState<string | null>(null);
 
@@ -28,7 +30,7 @@ export const useApproveOrganization = () => {
         mutationFn: (id: string) => {
             setId(id);
 
-            return adminOrganizationsApi.approve(id);
+            return adminOrganizationsApi.activate(id);
         },
         onSuccess: () => {
             queryClient.invalidateQueries({
@@ -42,7 +44,49 @@ export const useApproveOrganization = () => {
     });
 };
 
-export const useHideOrganization = () => {
+export const useActivateAllOrganizations = () => {
+  const queryClient = useQueryClient();
+  const { data } = useGetAllOrganizations();
+  return useMutation({
+      mutationFn: async (_: null) => {
+          const ids = data?.filter((item) => item.organizationStatus === OrganizationStatus.PENDING).map((item) => item.id);
+          if (!ids) {
+              return { success: false };
+          }
+          return await Promise.all(ids.map((id) => adminOrganizationsApi.activate(id)));
+      },
+      onSuccess: () => {
+          queryClient.invalidateQueries({
+              queryKey: [QUERY_CONSTANT.ALL_ORGANIZATIONS],
+          });
+      },
+  });
+};
+
+export const useRejectOrganization = () => {
+  const queryClient = useQueryClient();
+  const [id, setId] = React.useState<string | null>(null);
+
+  return useMutation({
+      mutationFn: (id: string) => {
+          setId(id);
+
+          return adminOrganizationsApi.reject(id);
+      },
+      onSuccess: () => {
+          queryClient.invalidateQueries({
+              queryKey: [QUERY_CONSTANT.ALL_ORGANIZATIONS],
+          });
+
+          queryClient.invalidateQueries({
+              queryKey: [QUERY_CONSTANT.ORGANIZATION, id],
+          });
+      },
+  });
+};
+
+
+export const useBanOrganization = () => {
     const queryClient = useQueryClient();
     const [id, setId] = React.useState<string | null>(null);
 
@@ -50,7 +94,7 @@ export const useHideOrganization = () => {
         mutationFn: (id: string) => {
             setId(id);
 
-            return adminOrganizationsApi.hide(id);
+            return adminOrganizationsApi.ban(id);
         },
         onSuccess: () => {
             queryClient.invalidateQueries({
@@ -64,21 +108,26 @@ export const useHideOrganization = () => {
     });
 };
 
-export const useApproveAllOrganizations = () => {
+export const useUnbanOrganization = () => {
     const queryClient = useQueryClient();
-    const { data } = useGetAllOrganizations();
+    const [id, setId] = React.useState<string | null>(null);
+
     return useMutation({
-        mutationFn: async (_: null) => {
-            const ids = data?.filter((item) => item.organizationStatus === OrganizationStatus.PENDING).map((item) => item.id);
-            if (!ids) {
-                return { success: false };
-            }
-            return await Promise.all(ids.map((id) => adminOrganizationsApi.approve(id)));
+        mutationFn: (id: string) => {
+            setId(id);
+
+            return adminOrganizationsApi.unban(id);
         },
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: [QUERY_CONSTANT.ALL_ORGANIZATIONS],
             });
+
+            queryClient.invalidateQueries({
+                queryKey: [QUERY_CONSTANT.ORGANIZATION, id],
+            });
         },
     });
 };
+
+

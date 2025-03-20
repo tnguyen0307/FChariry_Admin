@@ -17,14 +17,26 @@ export const adminPostsApi = {
         return res?.data;
     },
 
-    approve: async (id: string) => {
-        const res = await http.put(`${ENDPOINT}/approve/${id}`);
+    activate: async (id: string) => {
+        const res = await http.put(`${ENDPOINT}/activate/${id}`);
 
         return res?.data;
     },
 
-    hide: async (id: string) => {
-        const res = await http.put(`${ENDPOINT}/hide/${id}`);
+    reject: async (id: string) => {
+        const res = await http.put(`${ENDPOINT}/reject/${id}`);
+
+        return res?.data;
+    },
+
+    ban: async (id: string) => {
+        const res = await http.put(`${ENDPOINT}/ban/${id}`);
+
+        return res?.data;
+    },
+
+    unban: async (id: string) => {
+        const res = await http.put(`${ENDPOINT}/unban/${id}`);
 
         return res?.data;
     },

@@ -9,6 +9,7 @@ const statusColorMap = {
     [OrganizationStatus.REJECTED]: 'red',
     [OrganizationStatus.COMPLETED]: 'green',
     [OrganizationStatus.HIDDEN]: 'red',
+    [OrganizationStatus.BANNED]: 'red',
 };
 export const OrganizationStatusTag = ({ status }: { status: OrganizationStatus }) => {
     return <Tag color={statusColorMap[status]}>{capitalize(status)}</Tag>;

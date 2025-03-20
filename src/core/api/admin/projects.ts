@@ -17,14 +17,14 @@ export const adminProjectsApi = {
         return res?.data;
     },
 
-    approve: async (id: string) => {
-        const res = await http.put(`${ENDPOINT}/approve/${id}`);
+    // approve: async (id: string) => {
+    //     const res = await http.put(`${ENDPOINT}/approve/${id}`);
 
-        return res?.data;
-    },
+    //     return res?.data;
+    // },
 
-    hide: async (id: string) => {
-        const res = await http.put(`${ENDPOINT}/hide/${id}`);
+    ban: async (id: string) => {
+        const res = await http.put(`${ENDPOINT}/ban/${id}`);
 
         return res?.data;
     },
