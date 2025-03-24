@@ -43,7 +43,7 @@ function RouteComponent() {
                 <Descriptions.Item label="Status" span={1}>
                     <Space>
                         <RequestStatusTag status={request?.status} />
-                        <Tag color="red">Emergency</Tag>
+                        {/* <Tag color="red">Emergency</Tag> */}
                     </Space>
                 </Descriptions.Item>
                 <Descriptions.Item label="Request User" span={1}>

@@ -122,7 +122,7 @@ function RouteComponent() {
               return (
                 <Space>
                   <RequestStatusTag status={status} />
-                  {record.emergency && <Tag color="red">Emergency</Tag>}
+                  {/* {record.emergency && <Tag color="red">Emergency</Tag>} */}
                 </Space>
               );
             },
