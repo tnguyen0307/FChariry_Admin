@@ -7,10 +7,10 @@ import { defineConfig } from 'vite';
 export default defineConfig({
     plugins: [react(), TanStackRouterVite()],
     server: {
-        port: 3001,
+        port: 4000,
     },
     preview: {
-        port: 3001,
+        port: 4000,
     },
     resolve: {
         alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],

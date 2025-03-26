@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { ArrowRepeat, PointerDownFill, Receipt } from 'akar-icons';
+import { ArrowRepeat, PointerDownFill, Receipt, StatisticUp } from 'akar-icons';
 import { Button, Layout, Menu } from 'antd';
 import { Building, User } from 'lucide-react';
 
@@ -40,6 +40,12 @@ const DashboardLayout: React.FunctionComponent<DashboardLayoutProps> = ({ childr
                                 mode="inline"
                                 className="h-fit border-r-0"
                                 items={[
+                                    {
+                                        key: 'dashboard',
+                                        icon: <StatisticUp className="h-4 w-4" />,
+                                        label: 'Analytics',
+                                        onClick: () => router.push(FCRouter.dashboard.index()),
+                                    },
                                     {
                                         key: 'users',
                                         icon: <User className="h-4 w-4" />,
