@@ -42,7 +42,7 @@ function AppWrapper() {
             connectWebSocket((message: string) => {
                 toast.info(message, {
                     position: 'bottom-right',
-                    autoClose: 5000,
+                    autoClose: 10000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -59,9 +59,7 @@ function AppWrapper() {
     }, [location]);
 
     return (
-        <>
-            {/* <RouterProvider router={router} /> */}
-            {/* Chỉ hiển thị ToastContainer khi không ở trang login */}
+    <>
             {location !== '/login' && <ToastContainer />}
         </>
     );
