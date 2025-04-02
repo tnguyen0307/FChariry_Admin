@@ -5,6 +5,7 @@ import moment from 'moment';
 import { UserRoleTag } from '@/core/components/tags/UserRoleTag';
 import { UserStatusTag } from '@/core/components/tags/UserStatusTag';
 import { useGetUserById } from '@/core/hooks/query/admin-users.hook';
+import { UserStatus } from '@/core/models/user';
 
 export const Route = createFileRoute('/_admin-layout/dashboard/users/$id')({
     component: RouteComponent,
@@ -42,6 +43,11 @@ function RouteComponent() {
                 </Descriptions.Item>
                 <Descriptions.Item label="Role">{<UserRoleTag role={user?.userRole} />}</Descriptions.Item>
                 <Descriptions.Item label="Created at">{moment(user?.createdDate).format('DD/MM/YYYY HH:mm:ss')}</Descriptions.Item>
+                {user?.userStatus === UserStatus.Banned && (
+                    <Descriptions.Item label="Reason" span={3}>
+                        {user?.reason}
+                    </Descriptions.Item>
+                )}
             </Descriptions>
         </div>
     );

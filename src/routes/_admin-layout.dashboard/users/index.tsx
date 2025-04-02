@@ -1,18 +1,25 @@
 import React from 'react';
 
+import { useQueryClient } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { TextAlignJustified } from 'akar-icons';
-import { Button, Dropdown, Table, Typography } from 'antd';
+import { Button, Dropdown, Input, Table, Typography } from 'antd';
 import { ItemType, MenuItemType } from 'antd/lib/menu/interface';
+import Joi from 'joi';
 import moment from 'moment';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 import { FCRouter } from '@/core/FCRouter';
+import { adminUsersApi } from '@/core/api/admin/users';
+import { FCFormType } from '@/core/components/form/FCForm';
 import FCFormField from '@/core/components/form/FCFormField';
 import FCTextField from '@/core/components/form/FCTextField';
+import FormBuilder from '@/core/components/form/FormBuilder';
+import ModalBuilder from '@/core/components/modal/ModalBuilder';
 import { UserRoleTag } from '@/core/components/tags/UserRoleTag';
 import { UserStatusTag } from '@/core/components/tags/UserStatusTag';
+import { QUERY_CONSTANT } from '@/core/constant/query';
 import { useAuth } from '@/core/contexts/AuthContext';
 import { useBanUserById, useGetAllUsers, useUnBanUserById } from '@/core/hooks/query/admin-users.hook';
 import { UserModel, UserRole, UserStatus } from '@/core/models/user';
@@ -31,6 +38,7 @@ const defaultValues: FilterUser = {
 };
 
 function RouteComponent() {
+    const queryClient = useQueryClient();
     const router = useFCRouter();
     const { data } = useGetAllUsers();
 
@@ -94,7 +102,16 @@ function RouteComponent() {
                         dataIndex: 'createdDate',
                         key: 'createdDate',
                         render: (createdDate: string) => {
+                            if (!createdDate) {
+                                return '-';
+                            }
+
                             return moment(createdDate).format('DD/MM/YYYY');
+                        },
+                        sorter: (a, b) => {
+                            console.log(a.createdDate, b.createdDate);
+                            if (!a.createdDate || !b.createdDate) return 0;
+                            return moment(a.createdDate).valueOf() - moment(b.createdDate).valueOf();
                         },
                     },
                     {
@@ -139,15 +156,33 @@ function RouteComponent() {
                                 if (record.userStatus !== 'Banned') {
                                     items.push({
                                         key: 'ban',
-                                        label: 'Ban',
+                                        label: (
+                                            <ModalBuilder btnLabel="Ban" title="Ban User">
+                                                {(close) => (
+                                                    <FormBuilder
+                                                        apiAction={adminUsersApi.banUserById}
+                                                        defaultValues={{ reason: '', id: record.id }}
+                                                        fields={[
+                                                            {
+                                                                label: 'Reason',
+                                                                name: 'reason',
+                                                                type: FCFormType.TEXT,
+                                                            },
+                                                        ]}
+                                                        schema={{
+                                                            id: Joi.string().required(),
+                                                            reason: Joi.string().required(),
+                                                        }}
+                                                        onExtraSuccessAction={() => {
+                                                            toast.success('User has been banned');
+                                                            queryClient.invalidateQueries({ queryKey: [QUERY_CONSTANT.ALL_USERS] });
+                                                            close();
+                                                        }}
+                                                    ></FormBuilder>
+                                                )}
+                                            </ModalBuilder>
+                                        ),
                                         danger: true,
-                                        onClick: () => {
-                                            banUserById(record.id, {
-                                                onSuccess: () => {
-                                                    toast.success('User has been banned');
-                                                },
-                                            });
-                                        },
                                     });
                                 }
                             }

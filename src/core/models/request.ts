@@ -13,6 +13,7 @@ export interface RequestModel {
     imageUrls: string[];
     videoUrls: string[];
     emergency: boolean;
+    reason: string;
 }
 
 export enum RequestStatus {

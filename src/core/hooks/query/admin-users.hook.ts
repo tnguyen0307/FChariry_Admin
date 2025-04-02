@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { adminUsersApi } from '@/core/api/admin/users';
 import { QUERY_CONSTANT } from '@/core/constant/query';
+import { useAuth } from '@/core/contexts/AuthContext';
 
 export const useBanUserById = () => {
     const client = useQueryClient();
@@ -28,9 +29,13 @@ export const useUnBanUserById = () => {
 };
 
 export const useGetAllUsers = () => {
+    const { currentUser } = useAuth();
     return useQuery({
         queryKey: [QUERY_CONSTANT.ALL_USERS],
         queryFn: adminUsersApi.getAllUsers,
+        select: (data) => {
+            return data?.filter((user) => user.id !== currentUser?.id);
+        },
     });
 };
 

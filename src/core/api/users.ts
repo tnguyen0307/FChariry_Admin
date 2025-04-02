@@ -5,7 +5,7 @@ const ENDPOINT = '/users';
 
 export const usersApi = {
     getCurrentUser: async () => {
-        const res = await http.get<CurrentUserModel>(`${ENDPOINT}/current-user`);
+        const res = await http.get<CurrentUserModel>(`${ENDPOINT}/my-profile`);
 
         return res?.data;
     },

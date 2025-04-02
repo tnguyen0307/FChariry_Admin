@@ -33,6 +33,7 @@ export interface UserModel {
     username: string;
     credentialsNonExpired: boolean;
     accountNonLocked: boolean;
+    reason: string;
 }
 
 export enum UserStatus {

@@ -15,13 +15,12 @@ export interface ProjectModel {
     shutdownReason: string;
     categoryId: string;
     walletAddress: string;
+    reason: string;
 }
 
 export enum ProjectStatus {
-    PENDING = 'PENDING',
-    APPROVED = 'APPROVED',
-    REJECTED = 'REJECTED',
-    COMPLETED = 'COMPLETED',
+    DONATING = 'DONATING',
+    ACTIVE = 'ACTIVE',
+    FINISHED = 'FINISHED',
     BANNED = 'BANNED',
-    HIDDEN = 'HIDDEN',
 }

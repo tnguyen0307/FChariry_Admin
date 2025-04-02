@@ -6,6 +6,7 @@ import { FCRouter } from '@/core/FCRouter';
 import { OrganizationStatusTag } from '@/core/components/tags/OrganizationStatusTag';
 import { useGetOrganizationById } from '@/core/hooks/query/admin-organizations.hook';
 import { useGetUserById } from '@/core/hooks/query/admin-users.hook';
+import { OrganizationStatus } from '@/core/models/organization';
 import FCLink from '@/core/routing/components/FCLink';
 
 export const Route = createFileRoute('/_admin-layout/dashboard/organizations/$id')({
@@ -56,6 +57,11 @@ function RouteComponent() {
                 <Descriptions.Item label="CEO" span={3}>
                     <FCLink href={FCRouter.dashboard.users.detail(ceo?.id || '')}>{ceo?.fullName}</FCLink>
                 </Descriptions.Item>
+                {organization?.organizationStatus === OrganizationStatus.REJECTED && (
+                    <Descriptions.Item label="Rejected Reason" span={3}>
+                        {organization?.reason}
+                    </Descriptions.Item>
+                )}
             </Descriptions>
         </div>
     );

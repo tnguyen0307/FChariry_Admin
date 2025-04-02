@@ -7,6 +7,7 @@ export interface PostModel {
     createdAt: string;
     updatedAt: string;
     postStatus: PostStatus;
+    reason: string;
 }
 
 export enum PostStatus {

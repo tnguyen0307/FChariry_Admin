@@ -24,9 +24,13 @@ const LinesChart: React.FunctionComponent<LinesChartProps> = () => {
     ]);
 
     const usersLineChartValues = React.useMemo(() => {
-        const filteredData = users?.filter((user) => {
-            return dayjs(user.createdDate).isAfter(dayjs(dateRange[0])) && dayjs(user.createdDate).isBefore(dayjs(dateRange[1]));
-        });
+        const filteredData = users
+            ?.filter((user) => {
+                return dayjs(user.createdDate).isAfter(dayjs(dateRange[0])) && dayjs(user.createdDate).isBefore(dayjs(dateRange[1]));
+            })
+            .sort((a, b) => {
+                return dayjs(a.createdDate).valueOf() - dayjs(b.createdDate).valueOf();
+            });
 
         const data = _.groupBy(filteredData, 'createdDate');
 
@@ -39,9 +43,13 @@ const LinesChart: React.FunctionComponent<LinesChartProps> = () => {
     }, [users, dateRange]);
 
     const organizationsLineChartValues = React.useMemo(() => {
-        const filteredData = organizations?.filter((organization) => {
-            return dayjs(organization.startTime).isAfter(dayjs(dateRange[0])) && dayjs(organization.startTime).isBefore(dayjs(dateRange[1]));
-        });
+        const filteredData = organizations
+            ?.filter((organization) => {
+                return dayjs(organization.startTime).isAfter(dayjs(dateRange[0])) && dayjs(organization.startTime).isBefore(dayjs(dateRange[1]));
+            })
+            .sort((a, b) => {
+                return dayjs(a.startTime).valueOf() - dayjs(b.startTime).valueOf();
+            });
 
         const data = _.groupBy(filteredData, 'startTime');
 
@@ -51,9 +59,13 @@ const LinesChart: React.FunctionComponent<LinesChartProps> = () => {
     }, [organizations, dateRange]);
 
     const requestsLineChartValues = React.useMemo(() => {
-        const filteredData = requests?.filter((request) => {
-            return dayjs(request.creationDate).isAfter(dayjs(dateRange[0])) && dayjs(request.creationDate).isBefore(dayjs(dateRange[1]));
-        });
+        const filteredData = requests
+            ?.filter((request) => {
+                return dayjs(request.creationDate).isAfter(dayjs(dateRange[0])) && dayjs(request.creationDate).isBefore(dayjs(dateRange[1]));
+            })
+            .sort((a, b) => {
+                return dayjs(a.creationDate).valueOf() - dayjs(b.creationDate).valueOf();
+            });
 
         const data = _.groupBy(filteredData, 'creationDate');
 
@@ -63,9 +75,13 @@ const LinesChart: React.FunctionComponent<LinesChartProps> = () => {
     }, [requests, dateRange]);
 
     const postsLineChartValues = React.useMemo(() => {
-        const filteredData = posts?.filter((post) => {
-            return dayjs(post.createdAt).isAfter(dayjs(dateRange[0])) && dayjs(post.createdAt).isBefore(dayjs(dateRange[1]));
-        });
+        const filteredData = posts
+            ?.filter((post) => {
+                return dayjs(post.createdAt).isAfter(dayjs(dateRange[0])) && dayjs(post.createdAt).isBefore(dayjs(dateRange[1]));
+            })
+            .sort((a, b) => {
+                return dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf();
+            });
 
         const data = _.groupBy(filteredData, 'createdAt');
 
