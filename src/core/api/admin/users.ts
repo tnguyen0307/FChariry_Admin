@@ -4,6 +4,10 @@ import http from '../http';
 
 const ENDPOINT = '/api/admin/users';
 
+export type PutBanUserDTO = {
+    id: string;
+} & Pick<UserModel, 'reason'>;
+
 export const adminUsersApi = {
     getAllUsers: async () => {
         const res = await http.get<UserModel[]>(`${ENDPOINT}`);
@@ -11,8 +15,9 @@ export const adminUsersApi = {
         return res?.data;
     },
 
-    banUserById: async (id: string) => {
-        const res = await http.put(`${ENDPOINT}/ban/${id}`);
+    banUserById: async (data: PutBanUserDTO) => {
+        const { id, ...rest } = data;
+        const res = await http.put(`${ENDPOINT}/ban/${id}`, rest);
 
         return res?.data;
     },

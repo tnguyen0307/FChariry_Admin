@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { adminPostsApi } from '@/core/api/admin/posts';
+import { PutRejectPostDTO, adminPostsApi } from '@/core/api/admin/posts';
 import { QUERY_CONSTANT } from '@/core/constant/query';
 import { PostStatus } from '@/core/models/post';
 
@@ -62,25 +62,25 @@ export const useActivateAllPosts = () => {
 };
 
 export const useRejectPost = () => {
-  const queryClient = useQueryClient();
-  const [id, setId] = React.useState<string | null>(null);
+    const queryClient = useQueryClient();
+    const [id, setId] = React.useState<string | null>(null);
 
-  return useMutation({
-      mutationFn: (id: string) => {
-          setId(id);
+    return useMutation({
+        mutationFn: (data: PutRejectPostDTO) => {
+            setId(data.id);
 
-          return adminPostsApi.reject(id);
-      },
-      onSuccess: () => {
-          queryClient.invalidateQueries({
-              queryKey: [QUERY_CONSTANT.ALL_POSTS],
-          });
+            return adminPostsApi.reject(data);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: [QUERY_CONSTANT.ALL_POSTS],
+            });
 
-          queryClient.invalidateQueries({
-              queryKey: [QUERY_CONSTANT.POST, id],
-          });
-      },
-  });
+            queryClient.invalidateQueries({
+                queryKey: [QUERY_CONSTANT.POST, id],
+            });
+        },
+    });
 };
 
 export const useBanPost = () => {
@@ -97,7 +97,7 @@ export const useBanPost = () => {
             queryClient.invalidateQueries({
                 queryKey: [QUERY_CONSTANT.ALL_POSTS],
             });
-            
+
             queryClient.invalidateQueries({
                 queryKey: [QUERY_CONSTANT.POST, id],
             });

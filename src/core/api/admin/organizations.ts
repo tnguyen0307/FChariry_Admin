@@ -4,6 +4,10 @@ import http from '../http';
 
 const ENDPOINT = '/api/admin/organizations';
 
+export type PutRejectOrganizationDTO = {
+    id: string;
+} & Pick<OrganizationModel, 'reason'>;
+
 export const adminOrganizationsApi = {
     getAll: async () => {
         const res = await http.get<OrganizationModel[]>(`${ENDPOINT}`);
@@ -23,8 +27,9 @@ export const adminOrganizationsApi = {
         return res?.data;
     },
 
-    reject: async (id: string) => {
-        const res = await http.put(`${ENDPOINT}/reject/${id}`);
+    reject: async (data: PutRejectOrganizationDTO) => {
+        const { id, ...rest } = data;
+        const res = await http.put(`${ENDPOINT}/reject/${id}`, rest);
 
         return res?.data;
     },

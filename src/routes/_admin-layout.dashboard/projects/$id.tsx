@@ -7,6 +7,7 @@ import { ProjectStatusTag } from '@/core/components/tags/ProjectStatusTag';
 import { useGetOrganizationById } from '@/core/hooks/query/admin-organizations.hook';
 import { useGetProjectById } from '@/core/hooks/query/admin-projects.hook';
 import { useGetUserById } from '@/core/hooks/query/admin-users.hook';
+import { ProjectStatus } from '@/core/models/project';
 import FCLink from '@/core/routing/components/FCLink';
 
 export const Route = createFileRoute('/_admin-layout/dashboard/projects/$id')({

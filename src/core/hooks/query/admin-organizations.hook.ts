@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { adminOrganizationsApi } from '@/core/api/admin/organizations';
+import { PutRejectOrganizationDTO, adminOrganizationsApi } from '@/core/api/admin/organizations';
 import { QUERY_CONSTANT } from '@/core/constant/query';
 import { OrganizationStatus } from '@/core/models/organization';
 
@@ -19,8 +19,6 @@ export const useGetOrganizationById = (id: string) => {
         queryFn: () => adminOrganizationsApi.get(id),
     });
 };
-
-
 
 export const useActivateOrganization = () => {
     const queryClient = useQueryClient();
@@ -45,46 +43,45 @@ export const useActivateOrganization = () => {
 };
 
 export const useActivateAllOrganizations = () => {
-  const queryClient = useQueryClient();
-  const { data } = useGetAllOrganizations();
-  return useMutation({
-      mutationFn: async (_: null) => {
-          const ids = data?.filter((item) => item.organizationStatus === OrganizationStatus.PENDING).map((item) => item.id);
-          if (!ids) {
-              return { success: false };
-          }
-          return await Promise.all(ids.map((id) => adminOrganizationsApi.activate(id)));
-      },
-      onSuccess: () => {
-          queryClient.invalidateQueries({
-              queryKey: [QUERY_CONSTANT.ALL_ORGANIZATIONS],
-          });
-      },
-  });
+    const queryClient = useQueryClient();
+    const { data } = useGetAllOrganizations();
+    return useMutation({
+        mutationFn: async (_: null) => {
+            const ids = data?.filter((item) => item.organizationStatus === OrganizationStatus.PENDING).map((item) => item.id);
+            if (!ids) {
+                return { success: false };
+            }
+            return await Promise.all(ids.map((id) => adminOrganizationsApi.activate(id)));
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: [QUERY_CONSTANT.ALL_ORGANIZATIONS],
+            });
+        },
+    });
 };
 
 export const useRejectOrganization = () => {
-  const queryClient = useQueryClient();
-  const [id, setId] = React.useState<string | null>(null);
+    const queryClient = useQueryClient();
+    const [id, setId] = React.useState<string | null>(null);
 
-  return useMutation({
-      mutationFn: (id: string) => {
-          setId(id);
+    return useMutation({
+        mutationFn: (data: PutRejectOrganizationDTO) => {
+            setId(data.id);
 
-          return adminOrganizationsApi.reject(id);
-      },
-      onSuccess: () => {
-          queryClient.invalidateQueries({
-              queryKey: [QUERY_CONSTANT.ALL_ORGANIZATIONS],
-          });
+            return adminOrganizationsApi.reject(data);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: [QUERY_CONSTANT.ALL_ORGANIZATIONS],
+            });
 
-          queryClient.invalidateQueries({
-              queryKey: [QUERY_CONSTANT.ORGANIZATION, id],
-          });
-      },
-  });
+            queryClient.invalidateQueries({
+                queryKey: [QUERY_CONSTANT.ORGANIZATION, id],
+            });
+        },
+    });
 };
-
 
 export const useBanOrganization = () => {
     const queryClient = useQueryClient();
@@ -129,5 +126,3 @@ export const useUnbanOrganization = () => {
         },
     });
 };
-
-

@@ -1,17 +1,24 @@
 import React from 'react';
 
+import { useQueryClient } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { TextAlignJustified } from 'akar-icons';
 import { Button, Dropdown, Popover, Table, Typography } from 'antd';
 import { ItemType, MenuItemType } from 'antd/es/menu/interface';
+import Joi from 'joi';
 import moment from 'moment';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 import { FCRouter } from '@/core/FCRouter';
+import { adminOrganizationsApi } from '@/core/api/admin/organizations';
+import { FCFormType } from '@/core/components/form/FCForm';
 import FCFormField from '@/core/components/form/FCFormField';
 import FCTextField from '@/core/components/form/FCTextField';
+import FormBuilder from '@/core/components/form/FormBuilder';
+import ModalBuilder from '@/core/components/modal/ModalBuilder';
 import { OrganizationStatusTag } from '@/core/components/tags/OrganizationStatusTag';
+import { QUERY_CONSTANT } from '@/core/constant/query';
 import {
     useActivateAllOrganizations,
     useActivateOrganization,
@@ -36,13 +43,17 @@ const defaultValues: FilterOrganization = {
 };
 
 function RouteComponent() {
+    const queryClient = useQueryClient();
     const { data } = useGetAllOrganizations();
     const { mutate: activate, isPending: isPendingActivate } = useActivateOrganization();
     const { mutate: reject, isPending: isPendingReject } = useRejectOrganization();
     const { mutate: unban, isPending: isPendingUnban } = useUnbanOrganization();
     const { mutate: ban, isPending: isPendingBan } = useBanOrganization();
 
-    const isPending = React.useMemo(() => isPendingActivate || isPendingReject || isPendingUnban || isPendingBan, [isPendingActivate, isPendingReject, isPendingUnban, isPendingBan]);
+    const isPending = React.useMemo(
+        () => isPendingActivate || isPendingReject || isPendingUnban || isPendingBan,
+        [isPendingActivate, isPendingReject, isPendingUnban, isPendingBan],
+    );
     const { mutate: activateAll, isPending: isPendingActivateAll } = useActivateAllOrganizations();
 
     const router = useFCRouter();
@@ -124,6 +135,10 @@ function RouteComponent() {
 
                             return moment(startTime).format('DD/MM/YYYY');
                         },
+                        sorter: (a, b) => {
+                            if (!a.startTime || !b.startTime) return 0;
+                            return moment(a.startTime).valueOf() - moment(b.startTime).valueOf();
+                        },
                     },
                     {
                         title: 'Shutdown Day',
@@ -135,6 +150,10 @@ function RouteComponent() {
                             }
 
                             return moment(shutdownDay).format('DD/MM/YYYY');
+                        },
+                        sorter: (a, b) => {
+                            if (!a.shutdownDay || !b.shutdownDay) return 0;
+                            return moment(a.shutdownDay).valueOf() - moment(b.shutdownDay).valueOf();
                         },
                     },
                     {
@@ -176,14 +195,33 @@ function RouteComponent() {
 
                                 items.push({
                                     key: 'reject',
-                                    label: 'Reject',
-                                    onClick: () => {
-                                        reject(record.id, {
-                                            onSuccess: () => {
-                                                toast.success('Organization rejected successfully');
-                                            },
-                                        });
-                                    },
+                                    danger: true,
+                                    label: (
+                                        <ModalBuilder btnLabel="Reject" title="Reject Organization">
+                                            {(close) => (
+                                                <FormBuilder
+                                                    apiAction={adminOrganizationsApi.reject}
+                                                    defaultValues={{ reason: '', id: record.id }}
+                                                    fields={[
+                                                        {
+                                                            label: 'Reason',
+                                                            name: 'reason',
+                                                            type: FCFormType.TEXT,
+                                                        },
+                                                    ]}
+                                                    schema={{
+                                                        id: Joi.string().required(),
+                                                        reason: Joi.string().required(),
+                                                    }}
+                                                    onExtraSuccessAction={() => {
+                                                        toast.success('Organization rejected successfully');
+                                                        queryClient.invalidateQueries({ queryKey: [QUERY_CONSTANT.ALL_ORGANIZATIONS] });
+                                                        close();
+                                                    }}
+                                                ></FormBuilder>
+                                            )}
+                                        </ModalBuilder>
+                                    ),
                                 });
                             }
 

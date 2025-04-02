@@ -6,6 +6,7 @@ import { FCRouter } from '@/core/FCRouter';
 import { PostStatusTag } from '@/core/components/tags/PostStatusTag';
 import { useGetPostById } from '@/core/hooks/query/admin-posts.hook';
 import { useGetUserById } from '@/core/hooks/query/admin-users.hook';
+import { PostStatus } from '@/core/models/post';
 import FCLink from '@/core/routing/components/FCLink';
 
 export const Route = createFileRoute('/_admin-layout/dashboard/posts/$id')({
@@ -46,6 +47,11 @@ function RouteComponent() {
                 </Descriptions.Item>
                 <Descriptions.Item label="Created At">{post.createdAt ? moment(post.createdAt).format('DD/MM/YYYY') : '-'}</Descriptions.Item>
                 <Descriptions.Item label="Updated At">{post.updatedAt ? moment(post.updatedAt).format('DD/MM/YYYY') : '-'}</Descriptions.Item>
+                {post?.postStatus === PostStatus.REJECTED && (
+                    <Descriptions.Item label="Rejected Reason" span={3}>
+                        {post?.reason}
+                    </Descriptions.Item>
+                )}
             </Descriptions>
         </div>
     );

@@ -6,6 +6,7 @@ import { FCRouter } from '@/core/FCRouter';
 import { RequestStatusTag } from '@/core/components/tags/RequestStatusTag';
 import { useGetRequestById } from '@/core/hooks/query/admin-requests.hook';
 import { useGetUserById } from '@/core/hooks/query/admin-users.hook';
+import { RequestStatus } from '@/core/models/request';
 import FCLink from '@/core/routing/components/FCLink';
 
 export const Route = createFileRoute('/_admin-layout/dashboard/requests/$id')({
@@ -67,6 +68,11 @@ function RouteComponent() {
                         {request.videoUrls?.map((item) => <a key={item} className="text-blue-700 underline" target="_blank" href={item} />)}
                     </div>
                 </Descriptions.Item>
+                {request?.status === RequestStatus.REJECTED && (
+                    <Descriptions.Item label="Reason" span={3}>
+                        {request?.reason}
+                    </Descriptions.Item>
+                )}
             </Descriptions>
         </div>
     );

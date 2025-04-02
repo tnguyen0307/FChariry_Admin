@@ -65,16 +65,16 @@ const StatusChart: React.FunctionComponent<StatusChartProps> = () => {
     const projectPieChartSeries = React.useMemo(() => {
         return [
             {
-                label: capitalize(ProjectStatus.PENDING),
-                value: projects?.filter((project) => project.projectStatus === ProjectStatus.PENDING).length || 0,
+                label: capitalize(ProjectStatus.DONATING),
+                value: projects?.filter((project) => project.projectStatus === ProjectStatus.DONATING).length || 0,
             },
             {
-                label: capitalize(ProjectStatus.APPROVED),
-                value: projects?.filter((project) => project.projectStatus === ProjectStatus.APPROVED).length || 0,
+                label: capitalize(ProjectStatus.ACTIVE),
+                value: projects?.filter((project) => project.projectStatus === ProjectStatus.ACTIVE).length || 0,
             },
             {
-                label: capitalize(ProjectStatus.REJECTED),
-                value: projects?.filter((project) => project.projectStatus === ProjectStatus.REJECTED).length || 0,
+                label: capitalize(ProjectStatus.FINISHED),
+                value: projects?.filter((project) => project.projectStatus === ProjectStatus.FINISHED).length || 0,
             },
             {
                 label: capitalize(ProjectStatus.BANNED),

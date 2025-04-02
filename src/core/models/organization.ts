@@ -9,6 +9,7 @@ export interface OrganizationModel {
     shutdownDay: string;
     organizationStatus: OrganizationStatus;
     ceoId: string;
+    reason: string;
 }
 
 export enum OrganizationStatus {

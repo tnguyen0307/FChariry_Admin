@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { adminRequestsApi } from '@/core/api/admin/requests';
+import { PutRejectRequestDTO, adminRequestsApi } from '@/core/api/admin/requests';
 import { QUERY_CONSTANT } from '@/core/constant/query';
 import { RequestStatus } from '@/core/models/request';
 
@@ -47,10 +47,10 @@ export const useRejectRequest = () => {
     const [id, setId] = React.useState<string | null>(null);
 
     return useMutation({
-        mutationFn: (id: string) => {
-            setId(id);
+        mutationFn: (data: PutRejectRequestDTO) => {
+            setId(data.id);
 
-            return adminRequestsApi.reject(id);
+            return adminRequestsApi.reject(data);
         },
         onSuccess: () => {
             queryClient.invalidateQueries({

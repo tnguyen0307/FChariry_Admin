@@ -4,6 +4,10 @@ import http from '../http';
 
 const ENDPOINT = '/api/admin/posts';
 
+export type PutRejectPostDTO = {
+    id: string;
+} & Pick<PostModel, 'reason'>;
+
 export const adminPostsApi = {
     getAll: async () => {
         const res = await http.get<PostModel[]>(`${ENDPOINT}`);
@@ -23,8 +27,9 @@ export const adminPostsApi = {
         return res?.data;
     },
 
-    reject: async (id: string) => {
-        const res = await http.put(`${ENDPOINT}/reject/${id}`);
+    reject: async (data: PutRejectPostDTO) => {
+        const { id, ...rest } = data;
+        const res = await http.put(`${ENDPOINT}/reject/${id}`, rest);
 
         return res?.data;
     },
