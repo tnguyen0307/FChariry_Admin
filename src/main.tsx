@@ -13,6 +13,8 @@ import 'tippy.js/dist/tippy.css';
 import { routeTree } from './routeTree.gen';
 import { useEffect } from 'react';
 import { connectWebSocket, disconnectWebSocket } from './core/socket/websocket';
+import { connectOrganizationWebSocket, disconnectOrganizationWebSocket } from './core/socket/organizationwebsocket';
+import { connectPostWebSocket, disconnectPostWebSocket } from './core/socket/postwebsocket';
 
 const queryClient = new QueryClient();
 
@@ -64,10 +66,73 @@ function AppWrapper() {
         </>
     );
 }
+function PostAppWrapper() {
+    const location = window.location.pathname
+
+    useEffect(() => {
+        if (location !== '/login') {
+            connectPostWebSocket((message: string) => {
+                toast.info(message, {
+                    position: 'bottom-right',
+                    autoClose: 10000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                });
+            });
+        }
+
+        return () => {
+            if (location !== '/login') {
+                disconnectPostWebSocket();
+            }
+        };
+    }, [location]);
+
+    return (
+    <>
+            {location !== '/login' && <ToastContainer />}
+        </>
+    );
+}
+
+function OrganizationAppWrapper() {
+    const location = window.location.pathname
+
+    useEffect(() => {
+        if (location !== '/login') {
+            connectOrganizationWebSocket((message: string) => {
+                toast.info(message, {
+                    position: 'bottom-right',
+                    autoClose: 10000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                });
+            });
+        }
+
+        return () => {
+            if (location !== '/login') {
+                disconnectOrganizationWebSocket();
+            }
+        };
+    }, [location]);
+
+    return (
+    <>
+            {location !== '/login' && <ToastContainer />}
+        </>
+    );
+}
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
         <AppWrapper />
+        <PostAppWrapper />
+        <OrganizationAppWrapper/>
     </QueryClientProvider>,
 );

@@ -10,4 +10,6 @@ export const QUERY_CONSTANT = {
     POST: 'post',
     ALL_REQUESTS: 'all-requests',
     REQUEST: 'request',
+    ALL_TAGS: 'all-tags',
+    TAG: 'tag',
 };

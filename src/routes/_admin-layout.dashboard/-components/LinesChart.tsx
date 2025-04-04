@@ -30,13 +30,19 @@ const LinesChart: React.FunctionComponent<LinesChartProps> = () => {
             })
             .sort((a, b) => {
                 return dayjs(a.createdDate).valueOf() - dayjs(b.createdDate).valueOf();
+            })
+            .map((user) => {
+                return {
+                    ...user,
+                    createdDate: dayjs(user.createdDate).format('DD/MM/YYYY'),
+                };
             });
 
         const data = _.groupBy(filteredData, 'createdDate');
 
         return Object.keys(data).map((key) => {
             return {
-                name: moment(key).format('DD/MM/YYYY'),
+                name: key,
                 data: data[key].length,
             };
         });
@@ -49,12 +55,18 @@ const LinesChart: React.FunctionComponent<LinesChartProps> = () => {
             })
             .sort((a, b) => {
                 return dayjs(a.startTime).valueOf() - dayjs(b.startTime).valueOf();
+            })
+            .map((organization) => {
+                return {
+                    ...organization,
+                    startTime: dayjs(organization.startTime).format('DD/MM/YYYY'),
+                };
             });
 
         const data = _.groupBy(filteredData, 'startTime');
 
         return Object.keys(data).map((key) => {
-            return { name: moment(key).format('DD/MM/YYYY'), data: data[key].length };
+            return { name: key, data: data[key].length };
         });
     }, [organizations, dateRange]);
 
@@ -65,12 +77,18 @@ const LinesChart: React.FunctionComponent<LinesChartProps> = () => {
             })
             .sort((a, b) => {
                 return dayjs(a.creationDate).valueOf() - dayjs(b.creationDate).valueOf();
+            })
+            .map((request) => {
+                return {
+                    ...request,
+                    creationDate: dayjs(request.creationDate).format('DD/MM/YYYY'),
+                };
             });
 
         const data = _.groupBy(filteredData, 'creationDate');
 
         return Object.keys(data).map((key) => {
-            return { name: moment(key).format('DD/MM/YYYY'), data: data[key].length };
+            return { name: key, data: data[key].length };
         });
     }, [requests, dateRange]);
 
@@ -81,12 +99,18 @@ const LinesChart: React.FunctionComponent<LinesChartProps> = () => {
             })
             .sort((a, b) => {
                 return dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf();
+            })
+            .map((post) => {
+                return {
+                    ...post,
+                    createdAt: dayjs(post.createdAt).format('DD/MM/YYYY'),
+                };
             });
 
         const data = _.groupBy(filteredData, 'createdAt');
 
         return Object.keys(data).map((key) => {
-            return { name: moment(key).format('DD/MM/YYYY'), data: data[key].length };
+            return { name: key, data: data[key].length };
         });
     }, [posts, dateRange]);
 

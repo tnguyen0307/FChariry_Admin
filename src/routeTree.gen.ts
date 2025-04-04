@@ -15,6 +15,7 @@ import { Route as AdminLayoutImport } from './routes/_admin-layout'
 import { Route as IndexImport } from './routes/index'
 import { Route as AdminLayoutDashboardIndexImport } from './routes/_admin-layout.dashboard/index'
 import { Route as AdminLayoutDashboardUsersIndexImport } from './routes/_admin-layout.dashboard/users/index'
+import { Route as AdminLayoutDashboardTagsIndexImport } from './routes/_admin-layout.dashboard/tags/index'
 import { Route as AdminLayoutDashboardRequestsIndexImport } from './routes/_admin-layout.dashboard/requests/index'
 import { Route as AdminLayoutDashboardProjectsIndexImport } from './routes/_admin-layout.dashboard/projects/index'
 import { Route as AdminLayoutDashboardPostsIndexImport } from './routes/_admin-layout.dashboard/posts/index'
@@ -48,6 +49,13 @@ const AdminLayoutDashboardUsersIndexRoute =
   AdminLayoutDashboardUsersIndexImport.update({
     id: '/dashboard/users/',
     path: '/dashboard/users/',
+    getParentRoute: () => AdminLayoutRoute,
+  } as any)
+
+const AdminLayoutDashboardTagsIndexRoute =
+  AdminLayoutDashboardTagsIndexImport.update({
+    id: '/dashboard/tags/',
+    path: '/dashboard/tags/',
     getParentRoute: () => AdminLayoutRoute,
   } as any)
 
@@ -202,6 +210,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLayoutDashboardRequestsIndexImport
       parentRoute: typeof AdminLayoutImport
     }
+    '/_admin-layout/dashboard/tags/': {
+      id: '/_admin-layout/dashboard/tags/'
+      path: '/dashboard/tags'
+      fullPath: '/dashboard/tags'
+      preLoaderRoute: typeof AdminLayoutDashboardTagsIndexImport
+      parentRoute: typeof AdminLayoutImport
+    }
     '/_admin-layout/dashboard/users/': {
       id: '/_admin-layout/dashboard/users/'
       path: '/dashboard/users'
@@ -225,6 +240,7 @@ interface AdminLayoutRouteChildren {
   AdminLayoutDashboardPostsIndexRoute: typeof AdminLayoutDashboardPostsIndexRoute
   AdminLayoutDashboardProjectsIndexRoute: typeof AdminLayoutDashboardProjectsIndexRoute
   AdminLayoutDashboardRequestsIndexRoute: typeof AdminLayoutDashboardRequestsIndexRoute
+  AdminLayoutDashboardTagsIndexRoute: typeof AdminLayoutDashboardTagsIndexRoute
   AdminLayoutDashboardUsersIndexRoute: typeof AdminLayoutDashboardUsersIndexRoute
 }
 
@@ -243,6 +259,7 @@ const AdminLayoutRouteChildren: AdminLayoutRouteChildren = {
     AdminLayoutDashboardProjectsIndexRoute,
   AdminLayoutDashboardRequestsIndexRoute:
     AdminLayoutDashboardRequestsIndexRoute,
+  AdminLayoutDashboardTagsIndexRoute: AdminLayoutDashboardTagsIndexRoute,
   AdminLayoutDashboardUsersIndexRoute: AdminLayoutDashboardUsersIndexRoute,
 }
 
@@ -263,6 +280,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/posts': typeof AdminLayoutDashboardPostsIndexRoute
   '/dashboard/projects': typeof AdminLayoutDashboardProjectsIndexRoute
   '/dashboard/requests': typeof AdminLayoutDashboardRequestsIndexRoute
+  '/dashboard/tags': typeof AdminLayoutDashboardTagsIndexRoute
   '/dashboard/users': typeof AdminLayoutDashboardUsersIndexRoute
 }
 
@@ -279,6 +297,7 @@ export interface FileRoutesByTo {
   '/dashboard/posts': typeof AdminLayoutDashboardPostsIndexRoute
   '/dashboard/projects': typeof AdminLayoutDashboardProjectsIndexRoute
   '/dashboard/requests': typeof AdminLayoutDashboardRequestsIndexRoute
+  '/dashboard/tags': typeof AdminLayoutDashboardTagsIndexRoute
   '/dashboard/users': typeof AdminLayoutDashboardUsersIndexRoute
 }
 
@@ -296,6 +315,7 @@ export interface FileRoutesById {
   '/_admin-layout/dashboard/posts/': typeof AdminLayoutDashboardPostsIndexRoute
   '/_admin-layout/dashboard/projects/': typeof AdminLayoutDashboardProjectsIndexRoute
   '/_admin-layout/dashboard/requests/': typeof AdminLayoutDashboardRequestsIndexRoute
+  '/_admin-layout/dashboard/tags/': typeof AdminLayoutDashboardTagsIndexRoute
   '/_admin-layout/dashboard/users/': typeof AdminLayoutDashboardUsersIndexRoute
 }
 
@@ -314,6 +334,7 @@ export interface FileRouteTypes {
     | '/dashboard/posts'
     | '/dashboard/projects'
     | '/dashboard/requests'
+    | '/dashboard/tags'
     | '/dashboard/users'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -329,6 +350,7 @@ export interface FileRouteTypes {
     | '/dashboard/posts'
     | '/dashboard/projects'
     | '/dashboard/requests'
+    | '/dashboard/tags'
     | '/dashboard/users'
   id:
     | '__root__'
@@ -344,6 +366,7 @@ export interface FileRouteTypes {
     | '/_admin-layout/dashboard/posts/'
     | '/_admin-layout/dashboard/projects/'
     | '/_admin-layout/dashboard/requests/'
+    | '/_admin-layout/dashboard/tags/'
     | '/_admin-layout/dashboard/users/'
   fileRoutesById: FileRoutesById
 }
@@ -388,6 +411,7 @@ export const routeTree = rootRoute
         "/_admin-layout/dashboard/posts/",
         "/_admin-layout/dashboard/projects/",
         "/_admin-layout/dashboard/requests/",
+        "/_admin-layout/dashboard/tags/",
         "/_admin-layout/dashboard/users/"
       ]
     },
@@ -429,6 +453,10 @@ export const routeTree = rootRoute
     },
     "/_admin-layout/dashboard/requests/": {
       "filePath": "_admin-layout.dashboard/requests/index.tsx",
+      "parent": "/_admin-layout"
+    },
+    "/_admin-layout/dashboard/tags/": {
+      "filePath": "_admin-layout.dashboard/tags/index.tsx",
       "parent": "/_admin-layout"
     },
     "/_admin-layout/dashboard/users/": {

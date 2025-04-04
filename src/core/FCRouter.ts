@@ -22,5 +22,9 @@ export const FCRouter = {
             index: () => '/dashboard/requests',
             detail: (id: string) => `/dashboard/requests/${id}`,
         },
+        tags: {
+            index: () => '/dashboard/tags',
+            detail: (id: string) => `/dashboard/tags/${id}`,
+        },
     },
 };

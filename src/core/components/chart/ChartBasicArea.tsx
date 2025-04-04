@@ -53,6 +53,8 @@ const ChartBasicArea: React.FC<ChartBasicAreaProps> = ({ title, values, unit, co
                         },
                     },
                     yaxis: {
+                        min: 0,
+                        stepSize:1,
                         labels: {
                             formatter: (value: any) => {
                                 return formatNumber(value);
