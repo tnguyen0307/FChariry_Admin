@@ -8,7 +8,7 @@ const ENDPOINT = '/auth';
 
 export const authApi = {
     login: async (data: { email: string; password: string }) => {
-        const res = await http.post<TokenModel>(`${ENDPOINT}/login`, data);
+        const res = await http.post<TokenModel>(`${ENDPOINT}/loginAdmin`, data);
 
         const cookies = new Cookies();
 
