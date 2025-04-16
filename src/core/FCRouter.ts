@@ -26,5 +26,8 @@ export const FCRouter = {
             index: () => '/dashboard/tags',
             detail: (id: string) => `/dashboard/tags/${id}`,
         },
+        transfers: {
+            index: () => '/dashboard/transfers',
+        },
     },
 };

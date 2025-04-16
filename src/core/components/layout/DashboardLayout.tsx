@@ -77,6 +77,12 @@ const DashboardLayout: React.FunctionComponent<DashboardLayoutProps> = ({ childr
                                         onClick: () => router.push(FCRouter.dashboard.requests.index()),
                                     },
                                     {
+                                        key: 'transfer requests',
+                                        icon: <ArrowRepeat className="h-4 w-4" />,
+                                        label: 'Transfer Requests',
+                                        onClick: () => router.push(FCRouter.dashboard.transfers.index()),
+                                    },
+                                    {
                                         key: 'tags',
                                         icon: <Tag className="h-4 w-4" />,
                                         label: 'Tags',
