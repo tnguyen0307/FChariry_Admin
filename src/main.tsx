@@ -44,7 +44,7 @@ function AppWrapper() {
             connectWebSocket((message: string) => {
                 toast.info(message, {
                     position: 'bottom-right',
-                    autoClose: 10000,
+                    autoClose: 20000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -74,7 +74,7 @@ function PostAppWrapper() {
             connectPostWebSocket((message: string) => {
                 toast.info(message, {
                     position: 'bottom-right',
-                    autoClose: 10000,
+                    autoClose: 20000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -105,7 +105,7 @@ function OrganizationAppWrapper() {
             connectOrganizationWebSocket((message: string) => {
                 toast.info(message, {
                     position: 'bottom-right',
-                    autoClose: 10000,
+                    autoClose: 20000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
