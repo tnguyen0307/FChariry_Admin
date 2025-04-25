@@ -1,3 +1,5 @@
+import { FileModel } from './file';
+
 export interface OrganizationModel {
     id: string;
     organizationName: string;
@@ -10,6 +12,7 @@ export interface OrganizationModel {
     organizationStatus: OrganizationStatus;
     ceoId: string;
     reason: string;
+    files: FileModel[];
 }
 
 export enum OrganizationStatus {

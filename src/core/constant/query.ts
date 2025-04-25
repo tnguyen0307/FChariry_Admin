@@ -14,4 +14,6 @@ export const QUERY_CONSTANT = {
     TAG: 'tag',
     ALL_TRANSFERS: 'all-transfers',
     TRANSFER: 'transfer',
+    ALL_WITHDRAWALS: 'all-withdrawals',
+    WITHDRAWAL: 'withdrawal',
 };

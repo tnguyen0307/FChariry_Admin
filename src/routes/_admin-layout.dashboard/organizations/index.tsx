@@ -27,6 +27,7 @@ import {
     useRejectOrganization,
     useUnbanOrganization,
 } from '@/core/hooks/query/admin-organizations.hook';
+import { FileModel } from '@/core/models/file';
 import { OrganizationModel, OrganizationStatus } from '@/core/models/organization';
 import { useFCRouter } from '@/core/routing/hooks/FCRouter';
 
@@ -162,6 +163,33 @@ function RouteComponent() {
                         key: 'organizationStatus',
                         render: (status: OrganizationStatus) => {
                             return <OrganizationStatusTag status={status} />;
+                        },
+                    },
+                    {
+                        title: 'Documents',
+                        dataIndex: 'documents',
+                        key: 'documents',
+                        render: (documents: FileModel[]) => {
+                            return (
+                                <div className="flex flex-col gap-2">
+                                    {documents?.length === 0 && <div className="text-gray-500">No documents</div>}
+                                    {documents?.length > 0 && (
+                                        <Dropdown
+                                            menu={{
+                                                items: documents?.map((file) => ({
+                                                    key: file.uploadedFileId,
+                                                    label: file.fileName,
+                                                    onClick: () => {
+                                                        window.open(file.filePath, '_blank');
+                                                    },
+                                                })),
+                                            }}
+                                        >
+                                            <Button>View</Button>
+                                        </Dropdown>
+                                    )}
+                                </div>
+                            );
                         },
                     },
                     {

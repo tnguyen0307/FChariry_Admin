@@ -17,17 +17,12 @@ interface DashboardLayoutProps extends React.PropsWithChildren {}
 const DashboardLayout: React.FunctionComponent<DashboardLayoutProps> = ({ children }) => {
     const router = useFCRouter();
 
-    const { logout } = useAuth();
+    const { logout, currentUser } = useAuth();
 
     return (
         <Layout className="fade-in !min-h-screen min-w-full overflow-auto sm:min-w-[900px]">
             <Layout>
-                <Sider
-                    collapsed={false}
-                    width={250}
-                    collapsedWidth={80}
-                    className="relative border-0 border-r border-solid !border-black !bg-white "
-                >
+                <Sider collapsed={false} width={250} collapsedWidth={80} className="relative border-0 border-r border-solid !border-black !bg-white ">
                     <div className="flex h-full flex-col justify-between">
                         <div className="">
                             <div className="w-full items-center justify-center">
@@ -83,6 +78,12 @@ const DashboardLayout: React.FunctionComponent<DashboardLayoutProps> = ({ childr
                                         onClick: () => router.push(FCRouter.dashboard.transfers.index()),
                                     },
                                     {
+                                        key: 'withdrawals',
+                                        icon: <ArrowRepeat className="h-4 w-4" />,
+                                        label: 'Withdraw Requests',
+                                        onClick: () => router.push(FCRouter.dashboard.withdraw.index()),
+                                    },
+                                    {
                                         key: 'tags',
                                         icon: <Tag className="h-4 w-4" />,
                                         label: 'Tags',
@@ -91,8 +92,8 @@ const DashboardLayout: React.FunctionComponent<DashboardLayoutProps> = ({ childr
                                 ]}
                             />
                         </div>
-                        <div className="h-8">
-                            <Button className="w-full flex-shrink-0" type="primary" danger onClick={() => logout()}>
+                        <div className="h-10">
+                            <Button className="h-full w-full flex-shrink-0" type="primary" danger onClick={() => logout()}>
                                 Sign out
                             </Button>
                         </div>

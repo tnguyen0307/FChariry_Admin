@@ -14,6 +14,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as AdminLayoutImport } from './routes/_admin-layout'
 import { Route as IndexImport } from './routes/index'
 import { Route as AdminLayoutDashboardIndexImport } from './routes/_admin-layout.dashboard/index'
+import { Route as AdminLayoutDashboardWithdrawIndexImport } from './routes/_admin-layout.dashboard/withdraw/index'
 import { Route as AdminLayoutDashboardUsersIndexImport } from './routes/_admin-layout.dashboard/users/index'
 import { Route as AdminLayoutDashboardTransfersIndexImport } from './routes/_admin-layout.dashboard/transfers/index'
 import { Route as AdminLayoutDashboardTagsIndexImport } from './routes/_admin-layout.dashboard/tags/index'
@@ -45,6 +46,13 @@ const AdminLayoutDashboardIndexRoute = AdminLayoutDashboardIndexImport.update({
   path: '/dashboard/',
   getParentRoute: () => AdminLayoutRoute,
 } as any)
+
+const AdminLayoutDashboardWithdrawIndexRoute =
+  AdminLayoutDashboardWithdrawIndexImport.update({
+    id: '/dashboard/withdraw/',
+    path: '/dashboard/withdraw/',
+    getParentRoute: () => AdminLayoutRoute,
+  } as any)
 
 const AdminLayoutDashboardUsersIndexRoute =
   AdminLayoutDashboardUsersIndexImport.update({
@@ -239,6 +247,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLayoutDashboardUsersIndexImport
       parentRoute: typeof AdminLayoutImport
     }
+    '/_admin-layout/dashboard/withdraw/': {
+      id: '/_admin-layout/dashboard/withdraw/'
+      path: '/dashboard/withdraw'
+      fullPath: '/dashboard/withdraw'
+      preLoaderRoute: typeof AdminLayoutDashboardWithdrawIndexImport
+      parentRoute: typeof AdminLayoutImport
+    }
   }
 }
 
@@ -258,6 +273,7 @@ interface AdminLayoutRouteChildren {
   AdminLayoutDashboardTagsIndexRoute: typeof AdminLayoutDashboardTagsIndexRoute
   AdminLayoutDashboardTransfersIndexRoute: typeof AdminLayoutDashboardTransfersIndexRoute
   AdminLayoutDashboardUsersIndexRoute: typeof AdminLayoutDashboardUsersIndexRoute
+  AdminLayoutDashboardWithdrawIndexRoute: typeof AdminLayoutDashboardWithdrawIndexRoute
 }
 
 const AdminLayoutRouteChildren: AdminLayoutRouteChildren = {
@@ -279,6 +295,8 @@ const AdminLayoutRouteChildren: AdminLayoutRouteChildren = {
   AdminLayoutDashboardTransfersIndexRoute:
     AdminLayoutDashboardTransfersIndexRoute,
   AdminLayoutDashboardUsersIndexRoute: AdminLayoutDashboardUsersIndexRoute,
+  AdminLayoutDashboardWithdrawIndexRoute:
+    AdminLayoutDashboardWithdrawIndexRoute,
 }
 
 const AdminLayoutRouteWithChildren = AdminLayoutRoute._addFileChildren(
@@ -301,6 +319,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/tags': typeof AdminLayoutDashboardTagsIndexRoute
   '/dashboard/transfers': typeof AdminLayoutDashboardTransfersIndexRoute
   '/dashboard/users': typeof AdminLayoutDashboardUsersIndexRoute
+  '/dashboard/withdraw': typeof AdminLayoutDashboardWithdrawIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -319,6 +338,7 @@ export interface FileRoutesByTo {
   '/dashboard/tags': typeof AdminLayoutDashboardTagsIndexRoute
   '/dashboard/transfers': typeof AdminLayoutDashboardTransfersIndexRoute
   '/dashboard/users': typeof AdminLayoutDashboardUsersIndexRoute
+  '/dashboard/withdraw': typeof AdminLayoutDashboardWithdrawIndexRoute
 }
 
 export interface FileRoutesById {
@@ -338,6 +358,7 @@ export interface FileRoutesById {
   '/_admin-layout/dashboard/tags/': typeof AdminLayoutDashboardTagsIndexRoute
   '/_admin-layout/dashboard/transfers/': typeof AdminLayoutDashboardTransfersIndexRoute
   '/_admin-layout/dashboard/users/': typeof AdminLayoutDashboardUsersIndexRoute
+  '/_admin-layout/dashboard/withdraw/': typeof AdminLayoutDashboardWithdrawIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -358,6 +379,7 @@ export interface FileRouteTypes {
     | '/dashboard/tags'
     | '/dashboard/transfers'
     | '/dashboard/users'
+    | '/dashboard/withdraw'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -375,6 +397,7 @@ export interface FileRouteTypes {
     | '/dashboard/tags'
     | '/dashboard/transfers'
     | '/dashboard/users'
+    | '/dashboard/withdraw'
   id:
     | '__root__'
     | '/'
@@ -392,6 +415,7 @@ export interface FileRouteTypes {
     | '/_admin-layout/dashboard/tags/'
     | '/_admin-layout/dashboard/transfers/'
     | '/_admin-layout/dashboard/users/'
+    | '/_admin-layout/dashboard/withdraw/'
   fileRoutesById: FileRoutesById
 }
 
@@ -437,7 +461,8 @@ export const routeTree = rootRoute
         "/_admin-layout/dashboard/requests/",
         "/_admin-layout/dashboard/tags/",
         "/_admin-layout/dashboard/transfers/",
-        "/_admin-layout/dashboard/users/"
+        "/_admin-layout/dashboard/users/",
+        "/_admin-layout/dashboard/withdraw/"
       ]
     },
     "/_admin-layout/dashboard/": {
@@ -490,6 +515,10 @@ export const routeTree = rootRoute
     },
     "/_admin-layout/dashboard/users/": {
       "filePath": "_admin-layout.dashboard/users/index.tsx",
+      "parent": "/_admin-layout"
+    },
+    "/_admin-layout/dashboard/withdraw/": {
+      "filePath": "_admin-layout.dashboard/withdraw/index.tsx",
       "parent": "/_admin-layout"
     }
   }

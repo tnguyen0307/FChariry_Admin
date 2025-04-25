@@ -61,13 +61,7 @@ function RouteComponent() {
                 <Typography.Title level={3} className="!m-0">
                     Tag Management
                 </Typography.Title>
-                <ModalBuilder
-                    btnProps={{
-                        className: 'bg-blue-500 px-3 py-2 rounded-sm text-white cursor-pointer',
-                    }}
-                    btnLabel="Create"
-                    title="Create Tag"
-                >
+                <ModalBuilder btnLabel={<Button type="primary">Create</Button>} title="Create Tag">
                     {(close) => (
                         <FormBuilder
                             defaultValues={{
@@ -176,4 +170,3 @@ function RouteComponent() {
         </div>
     );
 }
-

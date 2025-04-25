@@ -29,5 +29,8 @@ export const FCRouter = {
         transfers: {
             index: () => '/dashboard/transfers',
         },
+        withdraw: {
+            index: () => '/dashboard/withdraw',
+        },
     },
 };

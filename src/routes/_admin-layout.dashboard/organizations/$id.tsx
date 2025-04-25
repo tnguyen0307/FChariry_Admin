@@ -1,11 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { Descriptions, Typography } from 'antd';
+import { Button, Descriptions, Typography } from 'antd';
 import moment from 'moment';
 
 import { FCRouter } from '@/core/FCRouter';
 import { OrganizationStatusTag } from '@/core/components/tags/OrganizationStatusTag';
 import { useGetOrganizationById } from '@/core/hooks/query/admin-organizations.hook';
 import { useGetUserById } from '@/core/hooks/query/admin-users.hook';
+import { useGetFilesByOrganizationId } from '@/core/hooks/query/file.hook';
 import { OrganizationStatus } from '@/core/models/organization';
 import FCLink from '@/core/routing/components/FCLink';
 
@@ -19,6 +20,10 @@ function RouteComponent() {
     const { data: organization, isLoading } = useGetOrganizationById(id);
 
     const { data: ceo } = useGetUserById(organization?.ceoId || '');
+
+    const { data: files } = useGetFilesByOrganizationId(id);
+
+    console.log('files', files);
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -62,6 +67,20 @@ function RouteComponent() {
                         {organization?.reason}
                     </Descriptions.Item>
                 )}
+                <Descriptions.Item label="Files">
+                    <div className="flex w-full flex-col items-start justify-start gap-1">
+                        {files?.map((file) => (
+                            <Button key={file.uploadedFileId} type="link" href={file.filePath} target="_blank">
+                                {file.fileName}
+                            </Button>
+                        ))}
+                        {files?.map((file) => (
+                            <Button key={file.uploadedFileId} type="link" href={file.filePath} target="_blank">
+                                {file.fileName}
+                            </Button>
+                        ))}
+                    </div>
+                </Descriptions.Item>
             </Descriptions>
         </div>
     );
