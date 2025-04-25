@@ -139,11 +139,6 @@ function TransferManagement() {
                         render: (project: Project) => <span>{project.projectName}</span>,
                     },
                     {
-                        title: 'Request Title',
-                        dataIndex: 'requestTitle',
-                        key: 'requestTitle',
-                    },
-                    {
                         title: 'Amount',
                         dataIndex: 'amount',
                         key: 'amount',
