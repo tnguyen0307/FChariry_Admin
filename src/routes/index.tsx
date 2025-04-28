@@ -59,7 +59,8 @@ const Page: React.FunctionComponent = () => {
                         }}
                         btnLabel="Sign in"
                         onExtraSuccessAction={(data) => {
-                            window.location.reload();
+                            // window.location.reload();
+                            router.push('/dashboard')
                         }}
                         onExtraErrorAction={(error) => {
                             toast.error('Email or password is incorrect');
@@ -74,23 +75,33 @@ const Page: React.FunctionComponent = () => {
 export const Route = createFileRoute('/')({
     component: Page,
     async beforeLoad() {
-        const user = await queryClient.ensureQueryData({
-            queryKey: [QUERY_CONSTANT.CURRENT_USER],
-            queryFn: async () => {
-                const res = await usersApi
-                    .getCurrentUser()
-                    .then((res) => res)
-                    .catch(() => null);
+        // const user = await queryClient.ensureQueryData({
+        //     queryKey: [QUERY_CONSTANT.CURRENT_USER],
+        //     queryFn: async () => {
+        //         const res = await usersApi
+        //             .getCurrentUser()
+        //             .then((res) => res)
+        //             .catch(() => null);
 
-                return res;
-            },
-        });
+        //         return res;
+        //     },
+        // });
 
+        // const cookies = new Cookies();
+        // const token = cookies.get(FCConstant.TOKEN_COOKIE_KEY);
+        // if (!token && token === 'undefined') {
+        //     cookies.remove(FCConstant.TOKEN_COOKIE_KEY);
+        // }
         const cookies = new Cookies();
-        const token = cookies.get(FCConstant.TOKEN_COOKIE_KEY);
-        if (!token && token === 'undefined') {
-            cookies.remove(FCConstant.TOKEN_COOKIE_KEY);
-        }
+        cookies.remove(FCConstant.TOKEN_COOKIE_KEY, { path: '/' });
+        cookies.remove(FCConstant.REFRESH_TOKEN_COOKIE_KEY, { path: '/' });
+
+        queryClient.removeQueries({ queryKey: [QUERY_CONSTANT.CURRENT_USER] });
+
+        const user = await usersApi
+            .getCurrentUser()
+            .then(() => true)
+            .catch(() => false);
 
         if (user) {
             throw redirect({
