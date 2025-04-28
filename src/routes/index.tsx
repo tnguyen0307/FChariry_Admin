@@ -75,6 +75,16 @@ const Page: React.FunctionComponent = () => {
 export const Route = createFileRoute('/')({
     component: Page,
     async beforeLoad() {
+        const cookies = new Cookies();
+        cookies.remove(FCConstant.TOKEN_COOKIE_KEY, { path: '/' });
+        cookies.remove(FCConstant.REFRESH_TOKEN_COOKIE_KEY, { path: '/' });
+
+        queryClient.removeQueries({ queryKey: [QUERY_CONSTANT.CURRENT_USER] });
+
+        const user = await usersApi
+            .getCurrentUser()
+            .then(() => true)
+            .catch(() => false);
         // const user = await queryClient.ensureQueryData({
         //     queryKey: [QUERY_CONSTANT.CURRENT_USER],
         //     queryFn: async () => {
@@ -92,16 +102,6 @@ export const Route = createFileRoute('/')({
         // if (!token && token === 'undefined') {
         //     cookies.remove(FCConstant.TOKEN_COOKIE_KEY);
         // }
-        const cookies = new Cookies();
-        cookies.remove(FCConstant.TOKEN_COOKIE_KEY, { path: '/' });
-        cookies.remove(FCConstant.REFRESH_TOKEN_COOKIE_KEY, { path: '/' });
-
-        queryClient.removeQueries({ queryKey: [QUERY_CONSTANT.CURRENT_USER] });
-
-        const user = await usersApi
-            .getCurrentUser()
-            .then(() => true)
-            .catch(() => false);
 
         if (user) {
             throw redirect({
