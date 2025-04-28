@@ -26,9 +26,10 @@ function TransferManagement() {
     const updateImageMutation = useUpdateTransactionImage();
     const updateErrorMutation = useUpdateTransactionError();
     const [uploadedUrl, setUploadedUrl] = React.useState(null);
+    const [navigateError, setNavigateError] = React.useState(false);
 
     const handleImageUpload = async (info) => {
-        const file = info.fileList[info.fileList.length-1].originFileObj;
+        const file = info.fileList[info.fileList.length - 1].originFileObj;
         console.log(info)
         toast.info("Uploading image...");
 
@@ -236,71 +237,72 @@ function TransferManagement() {
                                             </div>
 
                                             {/* Phần Upload Image */}
-                                            <div className="mt-4">
-                                                <Form form={confirmForm} onFinish={handleUpload}>
-                                                    <Form.Item name="id" initialValue={selectedTransfer?.id} hidden>
-                                                        <Input placeholder="id" />
-                                                    </Form.Item>
-                                                    <Form.Item>
-                                                        <Upload
-                                                            accept="image/*"
-                                                            showUploadList={false}
-                                                            multiple={false}
-                                                            beforeUpload={() => false} // prevent default upload behavior
-                                                            onChange={handleImageUpload}
+                                            {!navigateError ? (
+                                                <div className="mt-4">
+                                                    <Form form={confirmForm} onFinish={handleUpload}>
+                                                        <Form.Item name="id" initialValue={selectedTransfer?.id} hidden>
+                                                            <Input placeholder="id" />
+                                                        </Form.Item>
+                                                        <Form.Item>
+                                                            <Upload
+                                                                accept="image/*"
+                                                                showUploadList={false}
+                                                                multiple={false}
+                                                                beforeUpload={() => false} // prevent default upload behavior
+                                                                onChange={handleImageUpload}
+                                                            >
+                                                                <Button type="primary" style={{ backgroundColor: "white", color: "black", borderColor: "black" }}>Upload Image</Button>
+                                                            </Upload>
+                                                        </Form.Item>
+
+                                                        <Form.Item name="note">
+                                                            <Input.TextArea placeholder="Note" />
+                                                        </Form.Item>
+
+                                                        <Form.Item>
+                                                            <Button htmlType="submit" type="primary">
+                                                                Confirm Sent
+                                                            </Button>
+                                                        </Form.Item>
+                                                    </Form>
+                                                    <span>Is there any error has occurs? Click <a onClick={() => setNavigateError(true)}>here</a> to report error</span>
+                                                </div>
+                                            ) :
+                                                (
+                                                    <div className="mt-4">
+                                                        {selectedTransfer?.status === "ERROR" && selectedTransfer.note.includes("Error report from user:") && (
+                                                            <>
+                                                                <Typography.Text strong>Error report from user</Typography.Text>
+                                                                <Card>
+                                                                    <p><strong>Reported Error:</strong> {selectedTransfer?.note.replace("Error report from user:", "")}</p>
+                                                                </Card>
+                                                            </>
+                                                        )}
+                                                        <Typography.Text strong>If there is an issue, please fill out the form below to report the error:</Typography.Text>
+                                                        <Form form={reportForm} onFinish={handleReportError}
+                                                            initialValues={
+                                                                {
+                                                                    noteError: selectedTransfer?.note.includes("Error report from admin:")
+                                                                        ? selectedTransfer?.note.replace("Error report from admin:", "")
+                                                                        : ""
+                                                                }
+                                                            }
                                                         >
-                                                            <Button type="primary" style ={{backgroundColor:"white",color:"black", borderColor:"black"}}>Upload Image</Button>
-                                                        </Upload>
-                                                    </Form.Item>
-
-                                                    <Form.Item name="note">
-                                                        <Input.TextArea placeholder="Note" />
-                                                    </Form.Item>
-
-                                                    <Form.Item>
-                                                        <Button htmlType="submit" type="primary">
-                                                            Confirm Sent
-                                                        </Button>
-                                                    </Form.Item>
-                                                </Form>
-
-                                            </div>
-
-                                            <Divider style={{ borderTop: '1px solid rgba(0, 0, 0, 0.85)' }} />
-
-
-                                            {/* Form Report lỗi */}
-                                            <div className="mt-4">
-                                                {selectedTransfer?.status === "ERROR" && selectedTransfer.note.includes("Error report from user:") && (
-                                                    <>
-                                                        <Typography.Text strong>Error report from user</Typography.Text>
-                                                        <Card>
-                                                            <p><strong>Reported Error:</strong> {selectedTransfer?.note.replace("Error report from user:", "")}</p>
-                                                        </Card>
-                                                    </>
-                                                )}
-                                                <Typography.Text strong>If there is an issue, please fill out the form below to report the error:</Typography.Text>
-                                                <Form form={reportForm} onFinish={handleReportError}
-                                                    initialValues={
-                                                        {
-                                                            noteError: selectedTransfer?.note.includes("Error report from admin:")
-                                                                ? selectedTransfer?.note.replace("Error report from admin:", "")
-                                                                : ""
-                                                        }
-                                                    }
-                                                    >
-                                                    <Form.Item name="noteError">
-                                                        <Input.TextArea
-                                                            placeholder="noteError"
-                                                        />
-                                                    </Form.Item>
-                                                    <Form.Item>
-                                                        <Button htmlType="submit" type="primary">
-                                                            Report Error
-                                                        </Button>
-                                                    </Form.Item>
-                                                </Form>
-                                            </div>
+                                                            <Form.Item name="noteError">
+                                                                <Input.TextArea
+                                                                    placeholder="noteError"
+                                                                />
+                                                            </Form.Item>
+                                                            <Form.Item>
+                                                                <Button htmlType="submit" type="primary">
+                                                                    Report Error
+                                                                </Button>
+                                                            </Form.Item>
+                                                        </Form>
+                                                        <span>Go back? Click <a onClick={() => setNavigateError(false)}>here</a> to go back</span>
+                                                    </div>
+                                                )
+                                            }
                                         </Flex>
                                     </Modal>
 

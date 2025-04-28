@@ -21,7 +21,7 @@ export const authApi = {
             maxAge: 60 * 60 * 24 * 30 * 12,
             path: '/',
         });
-
+        console.log(res)
         return res?.data;
     },
 
